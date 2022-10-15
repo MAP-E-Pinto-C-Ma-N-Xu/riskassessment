@@ -1,9 +1,11 @@
-function App() {
+import AppRouter from "./utilities/AppRouter";
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">sss</header>
+    <div>
+      <AppRouter />
     </div>
   );
-}
+};
 
 export default App;
