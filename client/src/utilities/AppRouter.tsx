@@ -11,9 +11,9 @@ const AppRouter = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Homepage />} />
+        <Route path="/" element={<Landing />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/landing" element={<Landing />} />
+        <Route path="/homepage" element={<Homepage />} />
         <Route path="/basic-prediction" element={<BasicPrediction />} />
         <Route path="/configure" element={<Configure />} />
         <Route path="/result" element={<Result />} />
