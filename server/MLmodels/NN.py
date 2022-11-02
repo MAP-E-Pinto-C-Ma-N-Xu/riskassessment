@@ -21,5 +21,6 @@ def NN_train(mode, x_train_, y_train_,test):
 
     NN_noisy_normal_tuned = MLPClassifier(hidden_layer_sizes= (50, 100, 50), activation='tanh', alpha=0.05, learning_rate='constant', solver='adam')
     NN_noisy_normal_tuned.fit(x_train, y_train)
+    result = NN_noisy_normal_tuned.predict(test)
     #pickle.dump(NN_noisy_normal_tuned, open("NN_model_default","wb"))
-    return result
+    return NN_noisy_normal_tuned, result
