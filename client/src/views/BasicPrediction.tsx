@@ -12,6 +12,19 @@ const BasicPrediction = () => {
   const [dataStorage, setDataStorage] = React.useState("");
   const [accessControl, setAccessControl] = React.useState("");
   const [vunerability, setVunerability] = React.useState<string>();
+  const [cyberAwareness, setCyberAwareness] = React.useState("");
+  const [itSupport, setITSupport] = React.useState("");
+  const [numberofEmployees, setNumberofEmployees] = React.useState<string>();
+  const [revenue, setRevenue] = React.useState<string>();
+  const [cyberInvestment, setcyberInvestment] = React.useState<string>();
+
+   /*
+  const handleSubmit = () => {
+    console.log(field);
+    // ... get data form
+    // ... submit to API or something
+  }
+  */
 
   return (
     <div>
@@ -84,10 +97,75 @@ const BasicPrediction = () => {
           id="standard-basic"
           label="Vunerability"
           variant="standard"
+          type ="number"
           onChange={(value: string) => setVunerability(value)}
         />
+
+
+      <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
+          <InputLabel id="demo-simple-select-label">Cybersecurity Awareness</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={cyberAwareness}
+            label="Cybersecurity Awareness"
+            onChange={(event: SelectChangeEvent) =>
+              setCyberAwareness(event.target.value)
+            }
+          >
+            <MenuItem value={0}>Low Awareness</MenuItem>
+            <MenuItem value={1}>Moderate Awareness</MenuItem>
+            <MenuItem value={2}>High Awareness</MenuItem>
+            <MenuItem value={3}>Very High Awareness</MenuItem>
+          </Select>
+        </FormControl>
+
+        <FormControl variant="standard" sx={{ m: 1, minWidth: 140 }}>
+          <InputLabel id="demo-simple-select-label">IT Support</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={itSupport}
+            label="IT Support"
+            onChange={(event: SelectChangeEvent) =>
+              setITSupport(event.target.value)
+            }
+          >
+            <MenuItem value={0}>No Professional IT Support</MenuItem>
+            <MenuItem value={1}>One or more IT Experts </MenuItem>
+            <MenuItem value={2}>IT Security Department</MenuItem>
+          </Select>
+        </FormControl>
+
+        <TextField
+          id="standard-basic"
+          label="Number of Employees"
+          variant="standard"
+          type ="number"
+          onChange={(value: string) => setNumberofEmployees(value)}
+        />
+
+        <TextField
+          id="standard-basic"
+          label="Revenue"
+          variant="standard"
+          type ="number"
+          onChange={(value: string) => setRevenue(value)}
+        />
+
+        <TextField
+          id="standard-basic"
+          label="Cybersecurity Investment (%)"
+          variant="standard"
+          type ="number"
+          onChange={(value: string) => setcyberInvestment(value)}
+        />
+
       </Box>
+
+    
     </div>
+    
   );
 };
 
