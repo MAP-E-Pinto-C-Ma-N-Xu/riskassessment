@@ -27,8 +27,7 @@ classifier.fit(x_train, y_train)
 
 
 
-float_features = [2.0,1.0,0.0,7.0,1.0,3.3,0.0,24.0,1.77]
-features = [np.array(float_features)]
+
 
 
 pickle.dump(classifier,open("svm_all.pkl","wb"))

@@ -70,7 +70,7 @@ const BasicPrediction = () => {
               setAccessControl(event.target.value)
             }
           >
-            <MenuItem value={0}>No access control</MenuItem>
+            <MenuItem value={0}>No Access Control</MenuItem>
             <MenuItem value={1}>Low level</MenuItem>
             <MenuItem value={2}>Moderate level</MenuItem>
             <MenuItem value={3}>High level</MenuItem>
