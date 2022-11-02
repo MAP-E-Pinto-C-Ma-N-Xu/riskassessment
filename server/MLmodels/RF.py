@@ -19,4 +19,4 @@ def rf_train(mode, x_train_, y_train_,test):
     clf.fit(x_train, y_train)
     result = clf.predict(test)
 
-    return result
+    return clf,  result

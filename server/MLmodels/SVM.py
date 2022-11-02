@@ -32,4 +32,4 @@ def SVM_train(mode, x_train_, y_train_,test):
     
     result = classifier.predict(test)
 
-    return classifier
+    return classifier,result
