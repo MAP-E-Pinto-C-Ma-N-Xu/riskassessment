@@ -13,6 +13,8 @@ import { VolunteerActivism } from "@mui/icons-material";
 import axios from "axios";
 import { Form } from "react-bootstrap/lib/Navbar";
 import { FormLabel } from "react-bootstrap";
+import background from "./public.background.png"
+import { margin } from "@mui/system";
 //import Col from "react-bootstrap/Col"
 //import Row from "react-bootstrap/Row"
 
@@ -36,13 +38,17 @@ const BasicPrediction = () => {
   */
 
   return (
-    <div>
+    <div style ={{
+      backgroundImage: 'url(/background.png)',
+      height:'100vh',
+      backgroundSize: 'cover'}}>
+     
       <Header/>
-        <Box component="span" sx={{backgroundColor: 'primary.dark', height: '400',  width: '400',  border: '4px  grey'}}>
           <Box 
         component="form"
         sx={{
           "& .MuiTextField-root": { m: 2, width: "30ch" },
+           backgroundColor:"white"
         }}
         noValidate
         autoComplete="off"
@@ -88,7 +94,7 @@ const BasicPrediction = () => {
         component="form"
         sx={{
           "& .MuiTextField-root": { m: 2, width: "30ch" },
-          
+          backgroundColor:"white"
         }}
         noValidate
         autoComplete="off"
@@ -127,7 +133,7 @@ const BasicPrediction = () => {
         component="form"
         sx={{
           "& .MuiTextField-root": { m: 2, width: "30ch" },
-          
+          backgroundColor:"white"
         }}
         noValidate
         autoComplete="off"
@@ -171,7 +177,7 @@ const BasicPrediction = () => {
         component="form"
         sx={{
           "& .MuiTextField-root": { m: 2, width: "30ch" },
-          
+          backgroundColor:"white"
         }}
         noValidate
         autoComplete="off"
@@ -203,7 +209,7 @@ const BasicPrediction = () => {
         component="form"
         sx={{
           "& .MuiTextField-root": { m: 2, width: "30ch" },
-          
+          backgroundColor:"white"
         }}
         noValidate
         autoComplete="off"
@@ -221,10 +227,10 @@ const BasicPrediction = () => {
         />
       </Box>
 
-    </Box>
     </div>
     
   );
 };
 
 export default BasicPrediction;
+
