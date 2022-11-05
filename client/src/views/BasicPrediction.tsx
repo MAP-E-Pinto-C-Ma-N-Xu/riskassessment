@@ -6,6 +6,8 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { FormHelperText, InputLabel } from "@mui/material";
+import { VolunteerActivism } from "@mui/icons-material";
+import axios from "axios";
 
 const BasicPrediction = () => {
   const [field, setField] = React.useState("");
@@ -34,9 +36,11 @@ const BasicPrediction = () => {
         component="form"
         sx={{
           "& .MuiTextField-root": { m: 1, width: "25ch" },
+          
         }}
         noValidate
         autoComplete="off"
+        
       >
         <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
           <InputLabel id="demo-simple-select-label">Field</InputLabel>
@@ -47,6 +51,7 @@ const BasicPrediction = () => {
             label="Field"
             onChange={(event: SelectChangeEvent) =>
               setField(event.target.value)
+              
             }
           >
             <MenuItem value={0}>Education</MenuItem>
@@ -55,7 +60,7 @@ const BasicPrediction = () => {
             <MenuItem value={3}>Health</MenuItem>
           </Select>
         </FormControl>
-
+        
         <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
           <InputLabel id="demo-simple-select-label">Data Storage</InputLabel>
           <Select
@@ -98,7 +103,7 @@ const BasicPrediction = () => {
           label="Vunerability"
           variant="standard"
           type ="number"
-          onChange={(value: string) => setVunerability(value)}
+          onChange={(e) => setVunerability(e.target.value)}
         />
 
 
@@ -142,7 +147,7 @@ const BasicPrediction = () => {
           label="Number of Employees"
           variant="standard"
           type ="number"
-          onChange={(value: string) => setNumberofEmployees(value)}
+          onChange={(e) => setNumberofEmployees(e.target.value)}
         />
 
         <TextField
@@ -150,7 +155,7 @@ const BasicPrediction = () => {
           label="Revenue"
           variant="standard"
           type ="number"
-          onChange={(value: string) => setRevenue(value)}
+          onChange={(e) => setRevenue(e.target.value)}
         />
 
         <TextField
@@ -158,11 +163,15 @@ const BasicPrediction = () => {
           label="Cybersecurity Investment (%)"
           variant="standard"
           type ="number"
-          onChange={(value: string) => setcyberInvestment(value)}
+          onChange={(e) => setcyberInvestment(e.target.value)}
         />
 
       </Box>
-
+      
+      <button
+      >
+      <p>{vunerability}</p>
+      </button>
     
     </div>
     
