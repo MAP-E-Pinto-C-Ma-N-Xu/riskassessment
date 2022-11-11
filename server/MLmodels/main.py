@@ -8,7 +8,7 @@ from SVM import SVM_train
 from NN import NN_train
 import matplotlib.pyplot as plt
 
-def main(model = 'rf', mode = 'all'):
+def main_model(model = 'rf', mode = 'all'):
 
     train_set = pd.read_csv('syndatasets/train_with_noise.csv')
     test_set = pd.read_csv('syndatasets/test_with_noise.csv')
@@ -35,7 +35,5 @@ def main(model = 'rf', mode = 'all'):
     #     elif a == 1 : l.append('Medium')
     #     else: l.append('High')
     # print(l)
-
-main('svm','all')
 
     
