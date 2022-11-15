@@ -15,8 +15,8 @@ def rf_train(mode, x_train_, y_train_,test):
         x_train = np.delete(x_train, [3,6], 1)
         test = np.delete(test, [3,6], 1)
 
-    clf = RandomForestClassifier(random_state=2)
+    clf = RandomForestClassifier(n_estimators = 500, random_state=2, class_weight = 'balanced')
     clf.fit(x_train, y_train)
-    result = clf.predict(test)
+    pred_result = clf.predict(test)
 
-    return clf,  result
+    return clf, pred_result
