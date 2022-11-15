@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   FormControl,
   FormHelperText,
   InputAdornment,
@@ -9,35 +10,47 @@ import {
   SelectChangeEvent,
   TextField,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { IAttributes } from "../models/Attributes";
 
 interface AttributesSelectionProps {
   attributes: IAttributes;
+  changeAttributes: (defaultAttributes: IAttributes) => void;
 }
 
 const AttributesSelection = (props: AttributesSelectionProps) => {
-  const [field, setField] = React.useState("0");
-  const [dataStorage, setDataStorage] = React.useState("0");
-  const [accessControl, setAccessControl] = React.useState("0");
-  const [vunerability, setVunerability] = React.useState<string>();
-  const [cyberAwareness, setCyberAwareness] = React.useState("0");
-  const [itSupport, setITSupport] = React.useState("0");
-  const [numberofEmployees, setNumberofEmployees] = React.useState<string>();
-  const [revenue, setRevenue] = React.useState<string>();
-  const [cyberInvestment, setcyberInvestment] = React.useState<string>();
+  const [newAttributes, setNewAttributes] = useState<IAttributes>(
+    props.attributes
+  );
 
   return (
-    <Box>
+    <Box
+      sx={{
+        bgcolor: "background.paper",
+        boxShadow: 1,
+        borderRadius: 2,
+
+        m: 5,
+        px: 5,
+        pt: 2,
+        pb: 6,
+
+        minWidth: 400,
+
+        width: "40%",
+      }}
+    >
       <FormControl variant="standard" sx={{ m: 2, width: "30ch" }}>
         <InputLabel id="demo-simple-select-label">Field</InputLabel>
 
         <Select
-          defaultValue={field}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={field}
-          onChange={(event: SelectChangeEvent) => setField(event.target.value)}
+          displayEmpty
+          value={""}
+          onChange={(event: SelectChangeEvent) => {
+            newAttributes.field = Number(event.target.value);
+          }}
         >
           <MenuItem value={0}>Education</MenuItem>
           <MenuItem value={1}>Government</MenuItem>
@@ -52,11 +65,11 @@ const AttributesSelection = (props: AttributesSelectionProps) => {
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           defaultValue={"Local"}
-          value={dataStorage}
+          value={""}
           label="Data Storage"
-          onChange={(event: SelectChangeEvent) =>
-            setDataStorage(event.target.value)
-          }
+          onChange={(event: SelectChangeEvent) => {
+            newAttributes.dataStorage = Number(event.target.value);
+          }}
         >
           <MenuItem value={0}>Outsourced Cloud</MenuItem>
           <MenuItem value={1}>Local Cloud</MenuItem>
@@ -68,10 +81,10 @@ const AttributesSelection = (props: AttributesSelectionProps) => {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={accessControl}
+          value={""}
           label="Access Control"
           onChange={(event: SelectChangeEvent) =>
-            setAccessControl(event.target.value)
+            (newAttributes.accessControl = Number(event.target.value))
           }
         >
           <MenuItem value={0}>No Access Control</MenuItem>
@@ -81,78 +94,104 @@ const AttributesSelection = (props: AttributesSelectionProps) => {
         </Select>
         <FormHelperText>Low means blabalblablablalblablablablla</FormHelperText>
       </FormControl>
+      <Box>
+        <FormControl variant="standard" sx={{ m: 2, width: "30ch" }}>
+          <InputLabel id="demo-simple-select-label">
+            Cybersecurity Awareness
+          </InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={""}
+            label="Cybersecurity Awareness"
+            onChange={(event: SelectChangeEvent) =>
+              (newAttributes.cyberAwareness = Number(event.target.value))
+            }
+          >
+            <MenuItem value={0}>Low Awareness</MenuItem>
+            <MenuItem value={1}>Moderate Awareness</MenuItem>
+            <MenuItem value={2}>High Awareness</MenuItem>
+            <MenuItem value={3}>Very High Awareness</MenuItem>
+          </Select>
+        </FormControl>
 
-      <FormControl variant="standard" sx={{ m: 2, width: "30ch" }}>
-        <InputLabel id="demo-simple-select-label">
-          Cybersecurity Awareness
-        </InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={cyberAwareness}
-          label="Cybersecurity Awareness"
-          onChange={(event: SelectChangeEvent) =>
-            setCyberAwareness(event.target.value)
-          }
-        >
-          <MenuItem value={0}>Low Awareness</MenuItem>
-          <MenuItem value={1}>Moderate Awareness</MenuItem>
-          <MenuItem value={2}>High Awareness</MenuItem>
-          <MenuItem value={3}>Very High Awareness</MenuItem>
-        </Select>
-      </FormControl>
+        <FormControl variant="standard" sx={{ m: 2, width: "30ch" }}>
+          <InputLabel id="demo-simple-select-label">IT Support</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={""}
+            label="IT Support"
+            onChange={(event: SelectChangeEvent) =>
+              (newAttributes.itSupport = Number(event.target.value))
+            }
+          >
+            <MenuItem value={0}>No Professional IT Support</MenuItem>
+            <MenuItem value={1}>One or more IT Experts </MenuItem>
+            <MenuItem value={2}>IT Security Department</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
 
-      <FormControl variant="standard" sx={{ m: 2, width: "30ch" }}>
-        <InputLabel id="demo-simple-select-label">IT Support</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={itSupport}
-          label="IT Support"
-          onChange={(event: SelectChangeEvent) =>
-            setITSupport(event.target.value)
-          }
-        >
-          <MenuItem value={0}>No Professional IT Support</MenuItem>
-          <MenuItem value={1}>One or more IT Experts </MenuItem>
-          <MenuItem value={2}>IT Security Department</MenuItem>
-        </Select>
-      </FormControl>
-
-      <TextField
-        id="standard-basic"
-        label="Number of Employees"
-        variant="standard"
-        type="number"
-        defaultValue="10"
-        //placeholder="10,11,...,250"
-        onChange={(e) => setNumberofEmployees(e.target.value)}
-      />
-
-      <TextField
-        id="standard-basic"
-        label="Revenue"
-        variant="standard"
-        type="number"
-        defaultValue="1"
-        //placeholder="1,2,...50"
-        InputProps={{
-          startAdornment: <InputAdornment position="start">€</InputAdornment>,
+      <Box
+        sx={{
+          pt: 5,
+          mb: 5,
         }}
-        onChange={(e) => setRevenue(e.target.value)}
-      />
+      >
+        <TextField
+          sx={{
+            mx: 2,
+          }}
+          id="standard-basic"
+          label="Number of Employees"
+          variant="standard"
+          type="number"
+          defaultValue="10"
+          onChange={(event) =>
+            (newAttributes.numberofEmployees = Number(event.target.value))
+          }
+        />
 
-      <TextField
-        id="standard-basic"
-        label="Cybersecurity Investment (%)"
-        variant="standard"
-        type="number"
-        defaultValue="0"
-        onChange={(e) => setcyberInvestment(e.target.value)}
-        InputProps={{
-          endAdornment: <InputAdornment position="end">%</InputAdornment>,
-        }}
-      />
+        <TextField
+          sx={{
+            mx: 2,
+          }}
+          id="standard-basic"
+          label="Revenue"
+          variant="standard"
+          type="number"
+          defaultValue="1"
+          //placeholder="1,2,...50"
+          InputProps={{
+            startAdornment: <InputAdornment position="start">€</InputAdornment>,
+          }}
+          onChange={(event) =>
+            (newAttributes.revenue = Number(event.target.value))
+          }
+        />
+
+        <TextField
+          sx={{
+            mx: 2,
+          }}
+          id="standard-basic"
+          label="Cybersecurity Investment (%)"
+          variant="standard"
+          type="number"
+          defaultValue="0"
+          onChange={(event) =>
+            (newAttributes.cyberInvestment = Number(event.target.value))
+          }
+          InputProps={{
+            endAdornment: <InputAdornment position="end">%</InputAdornment>,
+          }}
+        />
+      </Box>
+
+      <Button variant="contained" onClick={() => {}}>
+        Predict
+      </Button>
     </Box>
   );
 };

@@ -1,11 +1,11 @@
 export interface IAttributes {
-  field: string;
-  dataStorage: string;
-  accessControl: string;
-  vunerability: string;
-  cyberAwareness: string;
-  itSupport: string;
-  numberofEmployees: string;
-  revenue: string;
-  cyberInvestment: string;
+  field: number;
+  dataStorage: number;
+  accessControl: number;
+  vunerability: number;
+  cyberAwareness: number;
+  itSupport: number;
+  numberofEmployees: number;
+  revenue: number;
+  cyberInvestment: number;
 }

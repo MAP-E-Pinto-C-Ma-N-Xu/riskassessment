@@ -1,29 +1,23 @@
-import * as React from "react";
-import Grid from "@mui/material/Grid";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Header from "../components/Header";
 import {
+  Button,
   Card,
   CardActionArea,
   CardContent,
   CardMedia,
   Typography,
 } from "@mui/material";
+import Grid from "@mui/material/Grid";
+import { useNavigate } from "react-router-dom";
+import Header from "../components/Header";
 
 const Landing = () => {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-  };
+  const navigate = useNavigate();
 
   return (
     <div className="landing">
       <Header />
-      <div className="landing">
+
+      <div className="info">
         <Grid container spacing={2}>
           <Grid item xs={4}>
             <Card sx={{ maxWidth: 345 }}>
@@ -71,6 +65,16 @@ const Landing = () => {
           </Grid>
         </Grid>
       </div>
+
+      <Button
+        variant="contained"
+        href="#contained-buttons"
+        onClick={() => {
+          navigate("/prediction");
+        }}
+      >
+        Go to prediction
+      </Button>
     </div>
   );
 };
