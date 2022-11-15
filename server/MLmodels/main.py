@@ -35,5 +35,9 @@ def main_model(model = 'rf', mode = 'all'):
     #     elif a == 1 : l.append('Medium')
     #     else: l.append('High')
     # print(l)
+<<<<<<< HEAD
+main_model('rf','all')
+=======
 
     
+>>>>>>> parent of 189b814 (risk noise + code correct)
