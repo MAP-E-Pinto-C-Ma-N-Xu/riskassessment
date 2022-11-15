@@ -2,7 +2,7 @@ import numpy as np
 
 def Label_Processor(y_train_, y_test_):
     
-    if y_train_[0] == np.array([0,1,2]).all:
+    if (y_train_[0] == np.array([0,1,2])).any(): 
         return y_train_ , y_test_
 
     y_train = np.copy(y_train_)

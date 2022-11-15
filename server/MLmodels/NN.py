@@ -6,44 +6,68 @@ import pickle
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
+class NN_train: 
+    """""
+    The NN trainner 
+    Para1: hidden layer
+    Para2: activation function
+    Para3: learning rate
+    """""
+    def __init__(self, mode) -> None:
+        self.mode = mode
+        if mode == 'noVI':
+            self.hls = (64, 256, 256, 48)
+            self.act = 'relu'
+            self.alpha = 0.05
 
-def NN_train(mode, x_train_, y_train_,test):
+        elif mode == 'noAW':
+            self.hls = (64, 256, 256, 48)
+            self.act = 'relu'
+            self.alpha = 0.0001
 
-    x_train = np.copy(x_train_)
-    y_train = np.copy(y_train_)
-    hls = (256, 256 ,256, 256, 64)
-    act = 'relu'
-    alpha = 0.0001
-    lr = 'adaptive'
-    solver = 'adam'
+        elif mode == 'noBOTH':
+            self.hls = (64, 256, 256, 48)
+            self.act = 'tanh'
+            self.alpha = 0.0001
 
-    if mode == 'noVI': 
-        x_train = np.delete(x_train, 3, 1)
-        test = np.delete(test, 3, 1)
-        hls = (64, 256, 256, 48)
-        act = 'relu'
-        alpha = 0.05
-        lr = 'adaptive'
-        solver = 'adam'
-    elif mode == 'noAW':
-        x_train = np.delete(x_train, 6, 1)
-        test = np.delete(test, 6, 1)
-        hls = (64, 256, 256, 48)
-        act = 'tanh'
-        alpha = 0.0001
-        lr = 'constant'
-        solver = 'adam'
-    elif mode == 'noBOTH':
-        x_train = np.delete(x_train, [3,6], 1)
-        test = np.delete(test, [3,6], 1)
-        hls = (64, 256, 256, 48)
-        act = 'tanh'
-        alpha = 0.0001
-        lr = 'adaptive'
-        solver = 'adam'
+        self.hls = (256, 256 ,256, 256, 64)
+        self.act = 'relu'
+        self.alpha = 0.0001
 
-    NN_noisy_tuned = make_pipeline(StandardScaler(),MLPClassifier(hidden_layer_sizes= hls, activation=act, alpha=alpha, learning_rate= lr, solver= solver, early_stopping=True, verbose = True ))
-    NN_noisy_tuned.fit(x_train, y_train)
-    pred_result = NN_noisy_tuned.predict(test)
+    def add_confi(self, hls, act, alpha):
 
-    return NN_noisy_tuned, pred_result
+        self.hls = hls
+        self.act = act
+        self.alpha = alpha
+
+    def train(self, x_train_, y_train_):
+
+        x_train = np.copy(x_train_)
+        y_train = np.copy(y_train_)
+
+        if self.mode == 'noVI':
+            x_train = np.delete(x_train, 3, 1)
+  
+        elif self.mode == 'noAW':
+            x_train = np.delete(x_train, 6, 1)
+            
+        elif self.mode == 'noBOTH':
+            x_train = np.delete(x_train, [3,6], 1)
+
+        self.clf = make_pipeline(StandardScaler(),MLPClassifier(hidden_layer_sizes= self.hls, activation=self.act, alpha=self.alpha, learning_rate= 'adaptive', solver= 'adam', early_stopping=True))
+        self.clf.fit(x_train, y_train)
+
+    def predict(self, test):
+        
+        if self.mode == 'noVI':
+            test = np.delete(test, 3, 1)
+        elif self.mode == 'noAW':
+            test = np.delete(test, 6, 1)
+        elif self.mode == 'noBOTH':
+            test = np.delete(test, [3,6], 1)
+
+        pred_result = self.clf.predict(test)
+        return pred_result
+    
+    def get_parameters(self):
+        return self.hls, self.act, self.alpha
