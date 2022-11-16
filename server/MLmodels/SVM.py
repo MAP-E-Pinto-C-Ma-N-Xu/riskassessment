@@ -29,11 +29,9 @@ class SVM_train:
 
         elif self.mode == 'noAW':
             x_train = np.delete(x_train, 6, 1)
-            test = np.delete(test, 6, 1)
 
         elif self.mode == 'noBOTH':
             x_train = np.delete(x_train, [3,6], 1)
-            test = np.delete(test, [3,6], 1)
 
         self.classifier = make_pipeline(StandardScaler(), svm.SVC(kernel=self.kernel, C = self.C, class_weight=self.class_weight))
         self.classifier.fit(x_train, y_train)

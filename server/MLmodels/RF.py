@@ -21,13 +21,10 @@ class RF_train:
 
         if self.mode == 'noVI': 
             x_train = np.delete(x_train, 3, 1)
-            test = np.delete(test, 3, 1)
         elif self.mode == 'noAW':
             x_train = np.delete(x_train, 6, 1)
-            test = np.delete(test, 6, 1)
         elif self.mode == 'noBOTH':
             x_train = np.delete(x_train, [3,6], 1)
-            test = np.delete(test, [3,6], 1)
 
         self.clf = RandomForestClassifier(n_estimators = self.n_est, max_depth=self.max_depth, class_weight = self.class_weight)
         self.clf.fit(x_train, y_train)

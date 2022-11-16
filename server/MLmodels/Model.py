@@ -18,8 +18,6 @@ def main_model(model = 'rf', mode = 'all', Para1 = 500, Para2 = None, Para3 = 'b
 
     y_train = np.ravel(pd.read_csv('syndatasets/train_label').values)
     y_test = np.ravel(pd.read_csv('syndatasets/test_label').values)
-
-    y_train, y_test = Label_Processor(y_train, y_test)
     
     if model == 'rf':
         ML_model = RF_train (mode)
@@ -40,4 +38,4 @@ def main_model(model = 'rf', mode = 'all', Para1 = 500, Para2 = None, Para3 = 'b
     #     elif a == 1 : l.append('Medium')
     #     else: l.append('High')
     # print(l)
-print(main_model('rf','all'))
+main_model('rf','all')
