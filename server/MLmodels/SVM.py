@@ -8,15 +8,22 @@ from sklearn.preprocessing import StandardScaler
 class SVM_train:
 
     def __init__(self, mode):
+
         self.mode = mode
         self.kernel = 'rbf'
         self.C = 20
-        self.class_weight = 'balanced'
+        self.gamma = 'scale'
 
-    def add_confi(self, kernel, C, class_weight):
+    def add_confi(self, kernel, C, gamma):
+
+        if not kernel in ['linear', 'poly', 'rbf', 'sigmoid', 'precomputed']: raise TypeError("For kernel function, Please choose from 'linear', 'poly', 'rbf', 'sigmoid', 'precomputed' ")
         self.kernel = kernel
+
+        if not (isinstance(C, float) and ( C <= 100)): raise Warning('Please choose a valid number for Regularization parameter')
         self.C = C
-        self.class_weight = class_weight
+
+        if not(0<gamma<10): raise Warning("For gamma, Please choose from 0-10 ")
+        self.gamma = gamma
 
     def train(self, x_train_, y_train_):
 
@@ -33,7 +40,7 @@ class SVM_train:
         elif self.mode == 'noBOTH':
             x_train = np.delete(x_train, [3,6], 1)
 
-        self.classifier = make_pipeline(StandardScaler(), svm.SVC(kernel=self.kernel, C = self.C, class_weight=self.class_weight))
+        self.classifier = make_pipeline(StandardScaler(), svm.SVC(kernel=self.kernel, C = self.C, class_weight='balanced',gamma=self.gamma))
         self.classifier.fit(x_train, y_train)
     
     def predict(self, test):
@@ -49,4 +56,4 @@ class SVM_train:
         return pred_result
     
     def get_parameters(self):
-        return self.kernel, self.C, self.class_weight
+        return self.kernel, self.C, self.gamma

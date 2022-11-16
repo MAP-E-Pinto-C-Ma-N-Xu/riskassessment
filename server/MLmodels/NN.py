@@ -36,8 +36,13 @@ class NN_train:
 
     def add_confi(self, hls, act, alpha):
 
+        if not isinstance(hls, tuple) : raise TypeError('Please enter a tuple for hidden layers. e.g (100,)')
         self.hls = hls
+
+        if not act in ['relu','tanh','logistic','identity']: raise TypeError("For activiation function, Please choose from 'relu','tanh','logistic','identity' ")
         self.act = act
+
+        if not (isinstance(alpha, float) and (alpha <= 1)) : raise TypeError('Please choose a small number for learning rate')
         self.alpha = alpha
 
     def train(self, x_train_, y_train_):

@@ -7,12 +7,18 @@ class RF_train:
         self.mode = mode
         self.n_est = 500
         self.max_depth = None
-        self.class_weight = 'balanced'
+        self.min_samples_split = 2
 
-    def add_confi(self, n_estimator, max_depth, class_weight):
+    def add_confi(self, n_estimator, max_depth, min_samples_split):
+
+        if not isinstance(n_estimator, int) : raise TypeError('Please enter a int number for RF etimators')
         self.n_est = n_estimator
+
+        if not isinstance(max_depth, int) : raise TypeError('Please enter a int number for RF depths')
         self.max_depth = max_depth
-        self.class_weight = class_weight
+
+        if not isinstance(min_samples_split, int): raise TypeError('Please enter a positive int number to split the samples ')
+        self.min_samples_split = min_samples_split
 
     def train(self, x_train_, y_train_):
 
@@ -26,7 +32,7 @@ class RF_train:
         elif self.mode == 'noBOTH':
             x_train = np.delete(x_train, [3,6], 1)
 
-        self.clf = RandomForestClassifier(n_estimators = self.n_est, max_depth=self.max_depth, class_weight = self.class_weight)
+        self.clf = RandomForestClassifier(n_estimators = self.n_est, max_depth=self.max_depth, min_samples_split = self.min_samples_split)
         self.clf.fit(x_train, y_train)
     
     def predict(self, test):
@@ -42,4 +48,4 @@ class RF_train:
         return pred_result
     
     def get_parameters(self):
-        return self.n_est, self.max_depth, self.class_weight
+        return self.n_est, self.max_depth, self.min_samples_split
