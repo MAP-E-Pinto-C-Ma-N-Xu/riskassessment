@@ -255,6 +255,7 @@ const AttributesSelection = (props: AttributesSelectionProps) => {
           variant="standard"
           type="number"
           defaultValue="0"
+          helperText="set to -1 if you don't know this"
           onChange={(event) => setVulnerability(Number(event.target.value))}
         />
 
