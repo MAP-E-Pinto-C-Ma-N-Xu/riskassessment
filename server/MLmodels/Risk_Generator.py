@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-
+from Data_Preprocessor import Label_Processor
 def Risk_ge(Data):
   ## Data Processing
   Data_Pro = np.zeros((Data.shape[0],8))
@@ -30,7 +30,7 @@ def Risk_ge(Data):
   Data_Pro[:,6] = Data[:,1]/2
 
   # Generating Risk
-  Risk = Data_Pro[:,0] * (Data_Pro[:,1] + Data_Pro[:,2] + Data_Pro[:,3] - Data_Pro[:,4] - Data_Pro[:,5] - Data_Pro[:,6]) + np.random.normal(0,0.01)
+  Risk = Data_Pro[:,0] * (Data_Pro[:,1] + Data_Pro[:,2] + Data_Pro[:,3] - Data_Pro[:,4] - Data_Pro[:,5] - Data_Pro[:,6]) + np.random.normal(0,0.2, Data.shape[0])
 
   return Risk
 
@@ -44,9 +44,11 @@ test_o = pd.read_csv('syndatasets/test_without_noise.csv').values
 y_train = Risk_ge(train_o)
 y_test = Risk_ge(test_o)
 
+y_train, y_test = Label_Processor(y_train, y_test)
+
 pd_ = pd.DataFrame(y_train, columns=["Risk Level"])
-pd_.to_csv(f'train_label',index=False)
+pd_.to_csv(f'syndatasets/train_label',index=False)
 
 pd_ = pd.DataFrame(y_test, columns=["Risk Level"])
-pd_.to_csv(f'test_label',index=False)
+pd_.to_csv(f'syndatasets/test_label',index=False)
 
