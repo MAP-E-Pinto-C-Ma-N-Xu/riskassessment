@@ -1,23 +1,19 @@
 import Box from "@mui/material/Box";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AttributesSelection from "../components/AttributesSelection";
 import Header from "../components/Header";
+import Result from "../components/Result";
 import { IAttributes } from "../models/Attributes";
+import { IPredictResult } from "../models/PredictResult";
 
 const Homepage = () => {
-  const defaultAttributes: IAttributes = {
-    field: 0,
-    dataStorage: 0,
-    accessControl: 0,
-    vunerability: 0,
-    cyberAwareness: 0,
-    itSupport: 0,
-    numberofEmployees: 0,
-    revenue: 0,
-    cyberInvestment: 0,
-  };
+  const [predictResult, setPredictResult] = useState<IPredictResult>({
+    result: 0,
+    mode: "",
+    model: "",
+  });
 
-  const [attributes, setAttributes] = useState<IAttributes>(defaultAttributes);
+  useEffect(() => {}, []);
 
   return (
     <div
@@ -29,13 +25,17 @@ const Homepage = () => {
     >
       <Header />
 
-      <Box>
+      <Box sx={{ display: "flex" }}>
         <AttributesSelection
-          attributes={attributes}
-          changeAttributes={(updatedAttributes) =>
-            setAttributes(updatedAttributes)
-          }
+          predictResult={predictResult}
+          updateResult={(updatedResult) => setPredictResult(updatedResult)}
         />
+
+        <Result
+          result={predictResult.result}
+          mode={predictResult.mode}
+          model={predictResult.model}
+        ></Result>
       </Box>
     </div>
   );

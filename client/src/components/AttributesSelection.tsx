@@ -10,18 +10,110 @@ import {
   SelectChangeEvent,
   TextField,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IAttributes } from "../models/Attributes";
+import { IPredictResult } from "../models/PredictResult";
+import axios from "axios";
 
 interface AttributesSelectionProps {
-  attributes: IAttributes;
-  changeAttributes: (defaultAttributes: IAttributes) => void;
+  predictResult: IPredictResult;
+  updateResult: (defaultResult: IPredictResult) => void;
 }
 
 const AttributesSelection = (props: AttributesSelectionProps) => {
-  const [newAttributes, setNewAttributes] = useState<IAttributes>(
-    props.attributes
-  );
+  const defaultAttributes: IAttributes = {
+    fields: 0,
+    dataStorage: 0,
+    accessControl: 0,
+    vulnerability: 0,
+    itSupport: 0,
+    investment: 0,
+    awareness: 0,
+    employeeNumber: 0,
+    revenue: 0,
+  };
+
+  const [newAttributes, setNewAttributes] =
+    useState<IAttributes>(defaultAttributes);
+
+  const [fields, setFields] = useState<string>("");
+  const [dataStorage, setDataStorage] = useState<string>("");
+  const [accessControl, setAccessControl] = useState<string>("");
+  const [vulnerability, setVulnerability] = useState<number>(0);
+  const [awareness, setAwareness] = useState<string>("");
+  const [itSupport, setItSupport] = useState<string>("");
+  const [employeeNumber, setEmployeeNumber] = useState<number>(10);
+  const [revenue, setRevenue] = useState<number>(1);
+  const [investment, setInvestment] = useState<number>(0);
+
+  useEffect(() => {
+    setNewAttributes({
+      fields: fields,
+      dataStorage: dataStorage,
+      accessControl: accessControl,
+      vulnerability: vulnerability,
+      itSupport: itSupport,
+      investment: investment,
+      awareness: awareness,
+      employeeNumber: employeeNumber,
+      revenue: revenue,
+    });
+  }, [
+    accessControl,
+    awareness,
+    dataStorage,
+    employeeNumber,
+    fields,
+    investment,
+    itSupport,
+    revenue,
+    vulnerability,
+  ]);
+
+  const threeModelPrediction = async () => {
+    svmResultPrediction();
+    nnResultPrediction();
+    rfResultPrediction();
+  };
+
+  const svmResultPrediction = async () => {
+    console.log(newAttributes);
+    axios
+      .post("http://127.0.0.1:5000/svm", newAttributes)
+      .then(function (response) {
+        props.updateResult(response.data);
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  const nnResultPrediction = async () => {
+    console.log(newAttributes);
+    axios
+      .post("http://127.0.0.1:5000/nn", newAttributes)
+      .then(function (response) {
+        props.updateResult(response.data);
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  const rfResultPrediction = async () => {
+    console.log(newAttributes);
+    axios
+      .post("http://127.0.0.1:5000/rf", newAttributes)
+      .then(function (response) {
+        props.updateResult(response.data);
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   return (
     <Box
@@ -47,9 +139,9 @@ const AttributesSelection = (props: AttributesSelectionProps) => {
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           displayEmpty
-          value={""}
+          value={fields}
           onChange={(event: SelectChangeEvent) => {
-            newAttributes.field = Number(event.target.value);
+            setFields(event.target.value);
           }}
         >
           <MenuItem value={0}>Education</MenuItem>
@@ -65,10 +157,10 @@ const AttributesSelection = (props: AttributesSelectionProps) => {
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           defaultValue={"Local"}
-          value={""}
+          value={dataStorage}
           label="Data Storage"
           onChange={(event: SelectChangeEvent) => {
-            newAttributes.dataStorage = Number(event.target.value);
+            setDataStorage(event.target.value);
           }}
         >
           <MenuItem value={0}>Outsourced Cloud</MenuItem>
@@ -81,10 +173,10 @@ const AttributesSelection = (props: AttributesSelectionProps) => {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={""}
+          value={accessControl}
           label="Access Control"
           onChange={(event: SelectChangeEvent) =>
-            (newAttributes.accessControl = Number(event.target.value))
+            setAccessControl(event.target.value)
           }
         >
           <MenuItem value={0}>No Access Control</MenuItem>
@@ -102,16 +194,17 @@ const AttributesSelection = (props: AttributesSelectionProps) => {
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={""}
+            value={awareness}
             label="Cybersecurity Awareness"
             onChange={(event: SelectChangeEvent) =>
-              (newAttributes.cyberAwareness = Number(event.target.value))
+              setAwareness(event.target.value)
             }
           >
             <MenuItem value={0}>Low Awareness</MenuItem>
             <MenuItem value={1}>Moderate Awareness</MenuItem>
             <MenuItem value={2}>High Awareness</MenuItem>
             <MenuItem value={3}>Very High Awareness</MenuItem>
+            <MenuItem value={-1}>I dont know</MenuItem>
           </Select>
         </FormControl>
 
@@ -120,10 +213,10 @@ const AttributesSelection = (props: AttributesSelectionProps) => {
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={""}
+            value={itSupport}
             label="IT Support"
             onChange={(event: SelectChangeEvent) =>
-              (newAttributes.itSupport = Number(event.target.value))
+              setItSupport(event.target.value)
             }
           >
             <MenuItem value={0}>No Professional IT Support</MenuItem>
@@ -141,6 +234,7 @@ const AttributesSelection = (props: AttributesSelectionProps) => {
       >
         <TextField
           sx={{
+            my: 2,
             mx: 2,
           }}
           id="standard-basic"
@@ -148,13 +242,25 @@ const AttributesSelection = (props: AttributesSelectionProps) => {
           variant="standard"
           type="number"
           defaultValue="10"
-          onChange={(event) =>
-            (newAttributes.numberofEmployees = Number(event.target.value))
-          }
+          onChange={(event) => setEmployeeNumber(Number(event.target.value))}
         />
 
         <TextField
           sx={{
+            my: 2,
+            mx: 2,
+          }}
+          id="standard-basic"
+          label="Vulnerability"
+          variant="standard"
+          type="number"
+          defaultValue="0"
+          onChange={(event) => setVulnerability(Number(event.target.value))}
+        />
+
+        <TextField
+          sx={{
+            my: 2,
             mx: 2,
           }}
           id="standard-basic"
@@ -166,13 +272,12 @@ const AttributesSelection = (props: AttributesSelectionProps) => {
           InputProps={{
             startAdornment: <InputAdornment position="start">€</InputAdornment>,
           }}
-          onChange={(event) =>
-            (newAttributes.revenue = Number(event.target.value))
-          }
+          onChange={(event) => setRevenue(Number(event.target.value))}
         />
 
         <TextField
           sx={{
+            my: 2,
             mx: 2,
           }}
           id="standard-basic"
@@ -180,16 +285,19 @@ const AttributesSelection = (props: AttributesSelectionProps) => {
           variant="standard"
           type="number"
           defaultValue="0"
-          onChange={(event) =>
-            (newAttributes.cyberInvestment = Number(event.target.value))
-          }
+          onChange={(event) => setInvestment(Number(event.target.value))}
           InputProps={{
             endAdornment: <InputAdornment position="end">%</InputAdornment>,
           }}
         />
       </Box>
 
-      <Button variant="contained" onClick={() => {}}>
+      <Button
+        variant="contained"
+        onClick={() => {
+          threeModelPrediction();
+        }}
+      >
         Predict
       </Button>
     </Box>
