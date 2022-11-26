@@ -22,7 +22,7 @@ class SVM(Resource):
     def post(self):
         
         data = request.json
-
+        data = helper.dto(data)
 
         if (data['vulnerability'] == -1) and (data['awareness'] == -1):
             del data["vulnerability"]

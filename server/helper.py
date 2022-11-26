@@ -1,28 +1,25 @@
 import pickle
 import numpy as np
 
-def dicToList(userdata):
+def dto(data):
 
+    
+    userdatadto = {}
+    userdatadto['fields'] = data['fields']
+    userdatadto['dataStorage'] = data['dataStorage']
+    userdatadto['accessControl'] = data['accessControl']
+    userdatadto['vulnerability'] = data['vulnerability']
+    userdatadto['itSupport'] = data['itSupport']
+    userdatadto['investment'] = data['investment']
+    userdatadto['awareness'] = data['awareness']
+    userdatadto['employeeNumber'] = data['employeeNumber']
+    userdatadto['revenue'] = data['revenue']
 
-    inputlist = []
-    inputlist.append(userdata['fields'])
-    inputlist.append(userdata['dataStorage'])
-    inputlist.append(userdata['accessControl'])
-    inputlist.append(userdata['vulnerability'])
-    inputlist.append(userdata['itSupport'])
-    inputlist.append(userdata['investment'])
-    inputlist.append(userdata['awareness'])
-    inputlist.append(userdata['employeeNumber'])
-    inputlist.append(userdata['revenue'])
-
-    return 
-
+    return userdatadto
 
 
 
 def pickle_to_predict(userdata,classifierpkl):
-    
-
 
     float_features = [float(x) for x in userdata.values()]
     features = [np.array(float_features)]
