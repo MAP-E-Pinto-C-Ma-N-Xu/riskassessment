@@ -32,7 +32,6 @@ class SVM_train:
 
         if self.mode == 'noVI': 
             x_train = np.delete(x_train, 3, 1)
-            test = np.delete(test, 3, 1)
 
         elif self.mode == 'noAW':
             x_train = np.delete(x_train, 6, 1)

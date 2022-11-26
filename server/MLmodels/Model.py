@@ -36,6 +36,4 @@ def main_model(model = 'rf', mode = 'all', confi = False, Para1 = 500, Para2 = N
     ML_model.train(train,y_train)
 
     result = ML_model.predict(test)
-    return result
-
-main_model('nn','all', 1, (100,),'relu',0.001)
+    return ML_model,result
