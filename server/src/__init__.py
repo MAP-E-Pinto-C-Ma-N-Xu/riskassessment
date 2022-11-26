@@ -8,13 +8,7 @@ import helper
 # instantiate the app
 app = Flask(__name__)
 CORS(app)
-#cors = CORS()
-#cors.init_app(app, resources={r"*": {"origins": "*"}})
 api = Api(app)
-
-
-
-
 
 
 @api.route('/svm')
@@ -68,7 +62,7 @@ class NN(Resource):
         elif data['vulnerability'] == -1 :
             del data["vulnerability"]
             result = helper.pickle_to_predict(data,'./MLmodels/pklfile/nn_noVI.pkl')
-            result["mode"] = "novulnerability"
+            result["mode"] = "noVulnerability"
         
         
         elif data['awareness'] == -1 :
@@ -103,7 +97,7 @@ class RF(Resource):
         elif data['vulnerability'] == -1 :
             del data["vulnerability"]
             result = helper.pickle_to_predict(data,'./MLmodels/pklfile/svm_noVI.pkl')
-            result["mode"] = "noVulnerability"        
+            result["mode"] = "noVulnerability"
         
         elif data['awareness'] == -1 :
             del data['awareness']
@@ -128,13 +122,12 @@ class Test(Resource):
     
         return resp
 
-        
-
-
+    
 @api.route('/check')
 class Welcome(Resource):
     def get(self):
         return "Running"
+
 
 
 

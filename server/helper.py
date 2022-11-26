@@ -28,3 +28,5 @@ def pickle_to_predict(userdata,classifierpkl):
     result = {"result":int(raw_prediction)}
 
     return result
+
+
