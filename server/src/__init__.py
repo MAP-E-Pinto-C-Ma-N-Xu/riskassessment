@@ -28,21 +28,21 @@ class SVM(Resource):
             del data["vulnerability"]
             del data['awareness']
 
-            result = helper.pickle_to_predict(data,'./MLmodels/svm_noBOTH.pkl')
-            result["mode"] = "no both"
+            result = helper.pickle_to_predict(data,'./MLmodels/pklfile/svm_noBOTH.pkl')
+            result["mode"] = "noBoth"
 
         elif data['vulnerability'] == -1 :
             del data["vulnerability"]
-            result = helper.pickle_to_predict(data,'./MLmodels/svm_noVI.pkl')  
-            result["mode"] = "no vulnerability"      
+            result = helper.pickle_to_predict(data,'./MLmodels/pklfile/svm_noVI.pkl')  
+            result["mode"] = "noVulnerability"      
         
         elif data['awareness'] == -1 :
             del data['awareness']
-            result = helper.pickle_to_predict(data,'./MLmodels/svm_noAW.pkl')  
-            result["mode"] = "no awareness"
+            result = helper.pickle_to_predict(data,'./MLmodels/pklfile/svm_noAW.pkl')  
+            result["mode"] = "noAwareness"
 
         else:
-            result = helper.pickle_to_predict(data,'./MLmodels/svm_all.pkl')
+            result = helper.pickle_to_predict(data,'./MLmodels/pklfile/svm_all.pkl')
             result["mode"] = "default"
         
         
@@ -61,23 +61,23 @@ class NN(Resource):
             del data["vulnerability"]
             del data['awareness']
 
-            result = helper.pickle_to_predict(data,'./MLmodels/svm_noBOTH.pkl')
-            result["mode"] = "no both"
+            result = helper.pickle_to_predict(data,'./MLmodels/pklfile/nn_noBOTH.pkl')
+            result["mode"] = "noBoth"
             
 
         elif data['vulnerability'] == -1 :
             del data["vulnerability"]
-            result = helper.pickle_to_predict(data,'./MLmodels/svm_noVI.pkl')
-            result["mode"] = "no vulnerability"
+            result = helper.pickle_to_predict(data,'./MLmodels/pklfile/nn_noVI.pkl')
+            result["mode"] = "novulnerability"
         
         
         elif data['awareness'] == -1 :
             del data['awareness']
-            result = helper.pickle_to_predict(data,'./MLmodels/svm_noAW.pkl')  
-            result["mode"] = "no awareness"
+            result = helper.pickle_to_predict(data,'./MLmodels/pklfile/nn_noAW.pkl')  
+            result["mode"] = "noAwareness"
              
         else:
-            result = helper.pickle_to_predict(data,'./MLmodels/svm_all.pkl')
+            result = helper.pickle_to_predict(data,'./MLmodels/pklfile/nn_all.pkl')
             result["mode"] = "default"
         
         
@@ -97,20 +97,20 @@ class RF(Resource):
             del data["vulnerability"]
             del data['awareness']
 
-            result = helper.pickle_to_predict(data,'./MLmodels/svm_noBOTH.pkl')
-            result["mode"] = "no both"
+            result = helper.pickle_to_predict(data,'./MLmodels/pklfile/svm_noBOTH.pkl')
+            result["mode"] = "noBoth"
 
         elif data['vulnerability'] == -1 :
             del data["vulnerability"]
-            result = helper.pickle_to_predict(data,'./MLmodels/svm_noVI.pkl')
-            result["mode"] = "no vulnerability"        
+            result = helper.pickle_to_predict(data,'./MLmodels/pklfile/svm_noVI.pkl')
+            result["mode"] = "noVulnerability"        
         
         elif data['awareness'] == -1 :
             del data['awareness']
-            result = helper.pickle_to_predict(data,'./MLmodels/svm_noAW.pkl')
-            result["mode"] = "no awareness"   
+            result = helper.pickle_to_predict(data,'./MLmodels/pklfile/svm_noAW.pkl')
+            result["mode"] = "noAwareness"   
         else:
-            result = helper.pickle_to_predict(data,'./MLmodels/svm_all.pkl')
+            result = helper.pickle_to_predict(data,'./MLmodels/pklfile/svm_all.pkl')
             result["mode"] = "default"
         
 
