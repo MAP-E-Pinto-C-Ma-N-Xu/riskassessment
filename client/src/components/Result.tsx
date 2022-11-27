@@ -1,9 +1,11 @@
-import { Box } from "@mui/material";
+import { Box, Card, CardContent, Typography } from "@mui/material";
+import { NULL } from "node-sass";
+import { IResult } from "../models/PredictResult";
 
 interface ResultProps {
-  result: number;
-  mode: string;
-  model: string;
+  svmResult: IResult;
+  nnResult: IResult;
+  rfResult: IResult;
 }
 const Result = (props: ResultProps) => {
   return (
@@ -23,9 +25,97 @@ const Result = (props: ResultProps) => {
         width: "40%",
       }}
     >
-      {props.result}
-      {props.mode}
-      {props.model}
+      <Box
+        sx={{
+          bgcolor: "background.paper",
+          boxShadow: 1,
+          borderRadius: 2,
+
+          mt: 5,
+        }}
+      >
+        {props.svmResult.active ? (
+          <Card sx={{ minWidth: 275 }}>
+            <CardContent>
+              <Typography
+                sx={{ fontSize: 15 }}
+                color="text.secondary"
+                gutterBottom
+              >
+                Support Vector Machine Algorithm
+              </Typography>
+
+              <Typography variant="h6">
+                Your Cyber Security Risk is
+                {props.svmResult.result === 0 ? " Low" : null}
+                {props.svmResult.result === 1 ? " Medium" : null}
+                {props.svmResult.result === 2 ? " High" : null}
+              </Typography>
+            </CardContent>
+          </Card>
+        ) : null}
+      </Box>
+
+      <Box
+        sx={{
+          bgcolor: "background.paper",
+          boxShadow: 1,
+          borderRadius: 2,
+
+          mt: 5,
+        }}
+      >
+        {props.nnResult.active ? (
+          <Card sx={{ minWidth: 275 }}>
+            <CardContent>
+              <Typography
+                sx={{ fontSize: 15 }}
+                color="text.secondary"
+                gutterBottom
+              >
+                Neuron Network Algorithm
+              </Typography>
+
+              <Typography variant="h6">
+                Your Cyber Security Risk is
+                {props.nnResult.result === 0 ? " Low" : null}
+                {props.nnResult.result === 1 ? " Medium" : null}
+                {props.nnResult.result === 2 ? " High" : null}
+              </Typography>
+            </CardContent>
+          </Card>
+        ) : null}
+      </Box>
+      <Box
+        sx={{
+          bgcolor: "background.paper",
+          boxShadow: 1,
+          borderRadius: 2,
+
+          mt: 5,
+        }}
+      >
+        {props.rfResult.active ? (
+          <Card sx={{ minWidth: 275 }}>
+            <CardContent>
+              <Typography
+                sx={{ fontSize: 15 }}
+                color="text.secondary"
+                gutterBottom
+              >
+                Random Forest Algorithm
+              </Typography>
+
+              <Typography variant="h6">
+                Your Cyber Security Risk is
+                {props.rfResult.result === 0 ? " Low" : null}
+                {props.rfResult.result === 1 ? " Medium" : null}
+                {props.rfResult.result === 2 ? " High" : null}
+              </Typography>
+            </CardContent>
+          </Card>
+        ) : null}
+      </Box>
     </Box>
   );
 };

@@ -3,6 +3,7 @@ import {
   Button,
   FormControl,
   FormHelperText,
+  Grid,
   InputAdornment,
   InputLabel,
   MenuItem,
@@ -12,12 +13,13 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { IAttributes } from "../models/Attributes";
-import { IPredictResult } from "../models/PredictResult";
+import { IResult } from "../models/PredictResult";
 import axios from "axios";
 
 interface AttributesSelectionProps {
-  predictResult: IPredictResult;
-  updateResult: (defaultResult: IPredictResult) => void;
+  updateSVMResult: (defaultResult: IResult) => void;
+  updateNNResult: (defaultResult: IResult) => void;
+  updateRFResult: (defaultResult: IResult) => void;
 }
 
 const AttributesSelection = (props: AttributesSelectionProps) => {
@@ -81,7 +83,12 @@ const AttributesSelection = (props: AttributesSelectionProps) => {
     axios
       .post("http://127.0.0.1:5000/svm", newAttributes)
       .then(function (response) {
-        props.updateResult(response.data);
+        props.updateSVMResult({
+          result: response.data.result,
+          mode: response.data.mode,
+          model: response.data.model,
+          active: true,
+        });
         console.log(response.data);
       })
       .catch(function (error) {
@@ -94,7 +101,12 @@ const AttributesSelection = (props: AttributesSelectionProps) => {
     axios
       .post("http://127.0.0.1:5000/nn", newAttributes)
       .then(function (response) {
-        props.updateResult(response.data);
+        props.updateNNResult({
+          result: response.data.result,
+          mode: response.data.mode,
+          model: response.data.model,
+          active: true,
+        });
         console.log(response.data);
       })
       .catch(function (error) {
@@ -107,7 +119,12 @@ const AttributesSelection = (props: AttributesSelectionProps) => {
     axios
       .post("http://127.0.0.1:5000/rf", newAttributes)
       .then(function (response) {
-        props.updateResult(response.data);
+        props.updateRFResult({
+          result: response.data.result,
+          mode: response.data.mode,
+          model: response.data.model,
+          active: true,
+        });
         console.log(response.data);
       })
       .catch(function (error) {
@@ -292,15 +309,16 @@ const AttributesSelection = (props: AttributesSelectionProps) => {
           }}
         />
       </Box>
-
-      <Button
-        variant="contained"
-        onClick={() => {
-          threeModelPrediction();
-        }}
-      >
-        Predict
-      </Button>
+      <Grid container justifyContent="flex-end">
+        <Button
+          variant="contained"
+          onClick={() => {
+            threeModelPrediction();
+          }}
+        >
+          Predict
+        </Button>
+      </Grid>
     </Box>
   );
 };

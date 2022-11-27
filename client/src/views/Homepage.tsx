@@ -3,14 +3,26 @@ import { useEffect, useState } from "react";
 import AttributesSelection from "../components/AttributesSelection";
 import Header from "../components/Header";
 import Result from "../components/Result";
-import { IAttributes } from "../models/Attributes";
-import { IPredictResult } from "../models/PredictResult";
+import { IResult } from "../models/PredictResult";
 
 const Homepage = () => {
-  const [predictResult, setPredictResult] = useState<IPredictResult>({
+  const [svmResult, setSVMResult] = useState<IResult>({
     result: 0,
     mode: "",
     model: "",
+    active: false,
+  });
+  const [nnResult, setNNResult] = useState<IResult>({
+    result: 0,
+    mode: "",
+    model: "",
+    active: false,
+  });
+  const [rfResult, setRFResult] = useState<IResult>({
+    result: 0,
+    mode: "",
+    model: "",
+    active: false,
   });
 
   useEffect(() => {}, []);
@@ -27,14 +39,15 @@ const Homepage = () => {
 
       <Box sx={{ display: "flex" }}>
         <AttributesSelection
-          predictResult={predictResult}
-          updateResult={(updatedResult) => setPredictResult(updatedResult)}
+          updateSVMResult={(svmResult) => setSVMResult(svmResult)}
+          updateNNResult={(nnResult) => setNNResult(nnResult)}
+          updateRFResult={(rfResult) => setRFResult(rfResult)}
         />
 
         <Result
-          result={predictResult.result}
-          mode={predictResult.mode}
-          model={predictResult.model}
+          svmResult={svmResult}
+          nnResult={nnResult}
+          rfResult={rfResult}
         ></Result>
       </Box>
     </div>

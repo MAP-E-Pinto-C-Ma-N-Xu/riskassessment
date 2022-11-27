@@ -121,6 +121,15 @@ class Test(Resource):
         resp = jsonify(resp)
     
         return resp
+    
+
+@api.route('/modif')
+class Modif(Resource):
+    def put(self):
+        data = request.json
+        resp = jsonify(data)
+
+        return resp
 
     
 @api.route('/check')
