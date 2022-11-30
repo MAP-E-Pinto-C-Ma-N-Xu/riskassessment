@@ -12,13 +12,13 @@ import warnings
 def main_model(model = 'rf', mode = 'all', confi = False, Para1 = 500, Para2 = None, Para3 = 2):
 
     train_set = pd.read_csv('syndatasets/train_with_noise.csv')
-    test_set = pd.read_csv('syndatasets/test_with_noise.csv')
+    # test_set = pd.read_csv('syndatasets/test_with_noise.csv')
     
     train = train_set.values
-    test = test_set.values
+    # test = test_set.values
 
     y_train = np.ravel(pd.read_csv('syndatasets/train_label').values)
-    y_test = np.ravel(pd.read_csv('syndatasets/test_label').values)
+    # y_test = np.ravel(pd.read_csv('syndatasets/test_label').values)
 
     # build default models
     if model == 'rf':
@@ -34,6 +34,7 @@ def main_model(model = 'rf', mode = 'all', confi = False, Para1 = 500, Para2 = N
     else: warnings.warn('You may want to add configurations, to do so, please set confi=True and add the parameters!')
 
     ML_model.train(train,y_train)
-    result = ML_model.predict(test)
+    # result = ML_model.predict(test)
+    result = None
 
     return ML_model.get_model(),result

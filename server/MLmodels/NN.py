@@ -64,15 +64,18 @@ class NN_train:
 
     def predict(self, test):
         
-        if self.mode == 'noVI':
-            test = np.delete(test, 3, 1)
-        elif self.mode == 'noAW':
-            test = np.delete(test, 6, 1)
-        elif self.mode == 'noBOTH':
-            test = np.delete(test, [3,6], 1)
+        # if self.mode == 'noVI':
+        #     test = np.delete(test, 3, 1)
+        # elif self.mode == 'noAW':
+        #     test = np.delete(test, 6, 1)
+        # elif self.mode == 'noBOTH':
+        #     test = np.delete(test, [3,6], 1)
 
         pred_result = self.clf.predict(test)
         return pred_result
     
     def get_parameters(self):
         return self.hls, self.act, self.alpha
+        
+    def get_model(self):
+        return self.clf

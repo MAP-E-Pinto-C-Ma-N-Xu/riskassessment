@@ -30,7 +30,7 @@ def Risk_ge(Data):
   Data_Pro[:,6] = Data[:,1]/2
 
   # Generating Risk
-  Risk = Data_Pro[:,0] * (Data_Pro[:,1] + Data_Pro[:,2] + Data_Pro[:,3] - Data_Pro[:,4] - Data_Pro[:,5] - Data_Pro[:,6]) + np.random.normal(0,0.01, Data.shape[0])
+  Risk = Data_Pro[:,0] * (Data_Pro[:,1] + Data_Pro[:,2] + Data_Pro[:,3] - Data_Pro[:,4] - Data_Pro[:,5] - Data_Pro[:,6]) + np.random.normal(0,0.05, Data.shape[0])
 
   return Risk
 
