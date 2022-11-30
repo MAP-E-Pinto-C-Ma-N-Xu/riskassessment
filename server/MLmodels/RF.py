@@ -8,6 +8,7 @@ class RF_train:
         self.n_est = 500
         self.max_depth = None
         self.min_samples_split = 2
+        self.clf = RandomForestClassifier(n_estimators = self.n_est, max_depth=self.max_depth, min_samples_split = self.min_samples_split)
 
     def add_confi(self, n_estimator, max_depth, min_samples_split):
 
@@ -32,20 +33,22 @@ class RF_train:
         elif self.mode == 'noBOTH':
             x_train = np.delete(x_train, [3,6], 1)
 
-        self.clf = RandomForestClassifier(n_estimators = self.n_est, max_depth=self.max_depth, min_samples_split = self.min_samples_split)
         self.clf.fit(x_train, y_train)
     
     def predict(self, test):
 
-        if self.mode == 'noVI':
-            test = np.delete(test, 3, 1)
-        elif self.mode == 'noAW':
-            test = np.delete(test, 6, 1)
-        elif self.mode == 'noBOTH':
-            test = np.delete(test, [3,6], 1)
+        # if self.mode == 'noVI':
+        #     test = np.delete(test, 3, 1)
+        # elif self.mode == 'noAW':
+        #     test = np.delete(test, 6, 1)
+        # elif self.mode == 'noBOTH':
+        #     test = np.delete(test, [3,6], 1)
             
         pred_result = self.clf.predict(test)
         return pred_result
     
     def get_parameters(self):
         return self.n_est, self.max_depth, self.min_samples_split
+    
+    def get_model(self):
+        return self.clf

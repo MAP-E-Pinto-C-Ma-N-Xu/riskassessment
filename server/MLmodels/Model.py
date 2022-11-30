@@ -34,6 +34,6 @@ def main_model(model = 'rf', mode = 'all', confi = False, Para1 = 500, Para2 = N
     else: warnings.warn('You may want to add configurations, to do so, please set confi=True and add the parameters!')
 
     ML_model.train(train,y_train)
-
     result = ML_model.predict(test)
-    return ML_model,result
+
+    return ML_model.get_model(),result
