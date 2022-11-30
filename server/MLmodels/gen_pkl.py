@@ -23,14 +23,26 @@ from Model import main_model
 # classifier,_ = main_model('svm','all')
 # pickle.dump(classifier,open("svm_all.pkl","wb"))
 
-classifier,_ = main_model('svm','noVI')
-pickle.dump(classifier,open("svm_noVI.pkl","wb"))
+# classifier,_ = main_model('svm','noVI')
+# pickle.dump(classifier,open("svm_noVI.pkl","wb"))
 
-classifier,_ = main_model('svm','noAW')
-pickle.dump(classifier,open("svm_noAW.pkl","wb"))
+# classifier,_ = main_model('svm','noAW')
+# pickle.dump(classifier,open("svm_noAW.pkl","wb"))
 
-classifier,_ = main_model('svm','noBOTH')
-pickle.dump(classifier,open("svm_noBOTH.pkl","wb"))
+# classifier,_ = main_model('svm','noBOTH')
+# pickle.dump(classifier,open("svm_noBOTH.pkl","wb"))
+
+classifier,_ = main_model('rf','all')
+pickle.dump(classifier,open("rf_all.pkl","wb"))
+
+classifier,_ = main_model('rf','noVI')
+pickle.dump(classifier,open("rf_noVI.pkl","wb"))
+
+classifier,_ = main_model('rf','noAW')
+pickle.dump(classifier,open("rf_noAW.pkl","wb"))
+
+classifier,_ = main_model('rf','noBOTH')
+pickle.dump(classifier,open("rf_noBOTH.pkl","wb"))
 
 
 

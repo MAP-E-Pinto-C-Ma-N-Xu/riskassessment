@@ -31,7 +31,7 @@ def main_model(model = 'rf', mode = 'all', confi = False, Para1 = 500, Para2 = N
     # add configuration 
     if confi == True:
         ML_model.add_confi(Para1,Para2,Para3)
-    else: warnings.warn('You may want to add configurations, to do so, please set confi=True and add the paramters!')
+    else: warnings.warn('You may want to add configurations, to do so, please set confi=True and add the parameters!')
 
     ML_model.train(train,y_train)
 
