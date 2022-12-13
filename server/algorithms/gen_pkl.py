@@ -5,8 +5,8 @@ from sklearn import svm
 from sklearn import metrics
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
-from Data_Preprocessor import Label_Processor
-from Model import main_model
+from algorithms.Data_Preprocessor import Label_Processor
+from algorithms.Model import main_model
 
 # classifier,_ = main_model('nn','all')
 # pickle.dump(classifier,open("nn_all.pkl","wb"))

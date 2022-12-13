@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from Data_Preprocessor import Label_Processor
+from algorithms.Data_Preprocessor import Label_Processor
 def Risk_ge(Data):
   ## Data Processing
   Data_Pro = np.zeros((Data.shape[0],8))
