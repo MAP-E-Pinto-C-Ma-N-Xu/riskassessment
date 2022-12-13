@@ -34,11 +34,12 @@ def pickle_to_predict(userdata,classifierpkl):
 def conver_modif(data):
     attr = dto(data["attr"])
     param =data["param"]
+
     
     return param,attr
 
 
-##def modify_train(model, mode, para1, para2, para3):
-##    classifier,_ = main_model(model, mode, True, para1, para2, para3)
-##    pickle.dump(classifier,open("./pickle/mod_pickle/{}_{}.pkl".format(model,mode),"wb"))
+def modify_train(model, mode, para1, para2, para3):
+    classifier,_ = main_model(model, mode, True, para1, para2, para3)
+    pickle.dump(classifier,open("./pickle/mod_pickle/{}_{}.pkl".format(model,mode),"wb"))
 

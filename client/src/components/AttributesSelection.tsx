@@ -88,6 +88,12 @@ const AttributesSelection = (props: AttributesSelectionProps) => {
     axios
       .put("http://127.0.0.1:5000/modif", { param: param, attr: newAttributes })
       .then(function (response) {
+        props.updateSVMResult({
+          result: response.data.result,
+          mode: response.data.mode,
+          model: response.data.model,
+          active: true,
+        });
         console.log(response.data);
       })
       .catch(function (error) {
