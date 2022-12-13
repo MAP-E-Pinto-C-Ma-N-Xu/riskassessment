@@ -289,9 +289,10 @@ const Configure = () => {
                 ) : null}
                 {showInfo ? (
                   <Alert severity="info" sx={{ m: 2, width: "30ch" }}>
-                    the gamma parameter defines how far the influence of a
-                    single training example reaches, with low values meaning
-                    ‘far’ and high values meaning ‘close’.
+                    For gamma, Please choose from 0-10. The gamma parameter
+                    defines how far the influence of a single training example
+                    reaches, with low values meaning ‘far’ and high values
+                    meaning ‘close’.
                   </Alert>
                 ) : null}
               </div>

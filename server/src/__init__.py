@@ -166,7 +166,18 @@ class Modif(Resource):
         elif(param["model"] == 1):
             param["model"] = 'svm'
             para1 = param["kernel"]
-            para2 = param["regul"]
+            if para1 == 0:
+                para1 = "linear"
+            elif para1 == 1:
+                para1 = "poly"
+            elif para1 == 2:
+                para1 = "rbf"
+            elif para1 == 3:
+                para1 = "sigmoid"
+            elif para1 == 4:
+                para1 = "precomputed"
+            para2 = float(param["regul"])
+
             para3 = param["gamma"]
         elif(param["model"] == 2):
             param["model"] = 'rf'

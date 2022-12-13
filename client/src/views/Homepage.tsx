@@ -50,7 +50,7 @@ const Homepage = () => {
           updateSVMResult={(svmResult) => setSVMResult(svmResult)}
           updateNNResult={(nnResult) => setNNResult(nnResult)}
           updateRFResult={(rfResult) => setRFResult(rfResult)}
-          updateModifResult={(modifResult) => setModifResult(rfResult)}
+          updateModifResult={(modifResult) => setModifResult(modifResult)}
         />
 
         <Result

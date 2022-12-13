@@ -13,6 +13,8 @@ const Result = (props: ResultProps) => {
   const [existResult, setExistResult] = useState<boolean>(false);
 
   useEffect(() => {
+    console.log(props.modifResult.active);
+    console.log(props.nnResult.active);
     setExistResult(
       props.svmResult.active ||
         props.nnResult.active ||
@@ -38,6 +40,11 @@ const Result = (props: ResultProps) => {
         width: "40%",
       }}
     >
+      {!existResult ? (
+        <Alert severity="info">
+          Use left panel to predict the Cybersecurity risk
+        </Alert>
+      ) : null}
       <Box
         sx={{
           bgcolor: "background.paper",
@@ -47,11 +54,6 @@ const Result = (props: ResultProps) => {
           mt: 5,
         }}
       >
-        {!existResult ? (
-          <Alert severity="info">
-            Use left panel to predict the Cybersecurity risk
-          </Alert>
-        ) : null}
         {props.svmResult.active ? (
           <Card sx={{ minWidth: 275 }}>
             <CardContent>

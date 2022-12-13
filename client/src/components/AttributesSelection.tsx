@@ -13,6 +13,7 @@ import {
   Select,
   SelectChangeEvent,
   TextField,
+  Tooltip,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { IAttributes } from "../models/Attributes";
@@ -183,16 +184,16 @@ const AttributesSelection = (props: AttributesSelectionProps) => {
         width: "60%",
       }}
     >
-      <Box>
-        <Button
-          variant="outlined"
-          startIcon={<InfoIcon />}
-          onClick={() => {
-            setShowInfo(!showInfo);
-          }}
-        >
-          More info about attributes
-        </Button>
+      <Box sx={{ display: "flex", flexDirection: "row-reverse" }}>
+        <Tooltip title="More info about attributes">
+          <IconButton
+            onClick={() => {
+              setShowInfo(!showInfo);
+            }}
+          >
+            <InfoIcon />
+          </IconButton>
+        </Tooltip>
       </Box>
       <FormControl variant="standard" sx={{ m: 2, width: "30ch" }}>
         <InputLabel id="demo-simple-select-label">Field</InputLabel>
