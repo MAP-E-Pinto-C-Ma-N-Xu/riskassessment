@@ -3,27 +3,20 @@ import {
   Box,
   Button,
   FormControl,
-  FormControlLabel,
-  FormLabel,
   Grid,
   InputLabel,
   MenuItem,
-  Radio,
-  RadioGroup,
   Select,
   SelectChangeEvent,
   TextField,
 } from "@mui/material";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import { IParameters } from "../models/Parameters";
 
 const Configure = () => {
   const defaultparameters: IParameters = {
     model: 0,
-    haveVI: 0,
-    haveAW: 0,
     hiddenLayers: 0,
     actFunction: 0,
     learningRate: 0,
@@ -38,9 +31,6 @@ const Configure = () => {
 
   const [model, setModel] = useState<string>("");
 
-  const [haveVI, sethaveVI] = useState<string>("");
-  const [haveAW, sethaveAW] = useState<string>("");
-
   const [hiddenLayers, setHiddenLayers] = useState<number>(50);
   const [actFunction, setActFunction] = useState<string>("");
   const [learningRate, setLearningRate] = useState<number>(0.1);
@@ -54,49 +44,13 @@ const Configure = () => {
   const [gamma, setGamma] = useState<number>(1);
 
   const [modsuccess, setModsuccess] = useState<boolean>(false);
-
-  const modification = async () => {
-    console.log(parameters);
-    axios
-      .put("http://127.0.0.1:5000/modif", parameters)
-      .then(function (response) {
-        setModsuccess(true);
-        console.log(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+  const [modMissing, setModMissing] = useState<boolean>(false);
 
   useEffect(() => {
-    setParameters({
-      model: model,
-      haveVI: haveVI,
-      haveAW: haveAW,
-      hiddenLayers: hiddenLayers,
-      actFunction: actFunction,
-      learningRate: learningRate,
-      estimators: estimators,
-      depth: depth,
-      split: split,
-      kernel: kernel,
-      regul: regul,
-      gamma: gamma,
-    });
-  }, [
-    model,
-    haveVI,
-    haveAW,
-    hiddenLayers,
-    actFunction,
-    learningRate,
-    estimators,
-    depth,
-    split,
-    kernel,
-    regul,
-    gamma,
-  ]);
+    console.log(JSON.stringify(modsuccess));
+    localStorage.setItem("modSuccess", JSON.stringify(modsuccess));
+    localStorage.setItem("modParam", JSON.stringify(parameters));
+  }, [modsuccess, parameters]);
 
   return (
     <div
@@ -134,6 +88,16 @@ const Configure = () => {
               Modification success!
             </Alert>
           ) : null}
+          {modMissing ? (
+            <Alert
+              severity="warning"
+              onClose={() => {
+                setModMissing(false);
+              }}
+            >
+              Algorithm model not selected!
+            </Alert>
+          ) : null}
           <div>
             <FormControl variant="standard" sx={{ m: 2, width: "20rem" }}>
               <InputLabel id="demo-simple-select-label">Algorithm</InputLabel>
@@ -153,36 +117,6 @@ const Configure = () => {
               </Select>
             </FormControl>
           </div>
-
-          <FormControl variant="standard" sx={{ m: 2, width: "20rem" }}>
-            <FormLabel id="demo-row-radio-buttons-group-label">
-              Do you know Vulnerability number
-            </FormLabel>
-            <RadioGroup
-              row
-              aria-labelledby="demo-row-radio-buttons-group-label"
-              name="row-radio-buttons-group"
-              onChange={(event) => sethaveVI(event.target.value)}
-            >
-              <FormControlLabel value="Yes" control={<Radio />} label="Yes" />
-              <FormControlLabel value="No" control={<Radio />} label="No" />
-            </RadioGroup>
-          </FormControl>
-
-          <FormControl variant="standard" sx={{ m: 2, width: "20rem" }}>
-            <FormLabel id="demo-row-radio-buttons-group-label">
-              Do you know Awareness level
-            </FormLabel>
-            <RadioGroup
-              row
-              aria-labelledby="demo-row-radio-buttons-group-label"
-              name="row-radio-buttons-group"
-              onChange={(event) => sethaveAW(event.target.value)}
-            >
-              <FormControlLabel value="Yes" control={<Radio />} label="Yes" />
-              <FormControlLabel value="No" control={<Radio />} label="No" />
-            </RadioGroup>
-          </FormControl>
 
           {String(model) === "0" ? (
             <div>
@@ -333,7 +267,24 @@ const Configure = () => {
             <Button
               variant="contained"
               onClick={() => {
-                modification();
+                setModMissing(false);
+                setParameters({
+                  model: model,
+                  hiddenLayers: hiddenLayers,
+                  actFunction: actFunction,
+                  learningRate: learningRate,
+                  estimators: estimators,
+                  depth: depth,
+                  split: split,
+                  kernel: kernel,
+                  regul: regul,
+                  gamma: gamma,
+                });
+                if (model === "") {
+                  setModMissing(true);
+                } else {
+                  setModsuccess(true);
+                }
               }}
             >
               Modify algorithm

@@ -48,7 +48,12 @@ const AttributesSelection = (props: AttributesSelectionProps) => {
   const [revenue, setRevenue] = useState<number>(1);
   const [investment, setInvestment] = useState<number>(0);
 
+  const [modsuccess, setModsuccess] = useState<boolean>(false);
+
   useEffect(() => {
+    const modstatus = localStorage.getItem("modSuccess");
+    setModsuccess(modstatus === "true");
+
     setNewAttributes({
       fields: fields,
       dataStorage: dataStorage,
@@ -71,6 +76,19 @@ const AttributesSelection = (props: AttributesSelectionProps) => {
     revenue,
     vulnerability,
   ]);
+
+  const ModifAlgPrediction = async () => {
+    const param = JSON.parse(localStorage.getItem("modParam")!);
+
+    axios
+      .put("http://127.0.0.1:5000/modif", { param: param, attr: newAttributes })
+      .then(function (response) {
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   const threeModelPrediction = async () => {
     svmResultPrediction();
@@ -310,7 +328,26 @@ const AttributesSelection = (props: AttributesSelectionProps) => {
         />
       </Box>
       <Grid container justifyContent="flex-end">
+        {modsuccess ? (
+          <Button
+            sx={{
+              my: 2,
+              mx: 2,
+            }}
+            variant="contained"
+            onClick={() => {
+              ModifAlgPrediction();
+            }}
+          >
+            Predict using modified algorithm
+          </Button>
+        ) : null}
+
         <Button
+          sx={{
+            my: 2,
+            mx: 2,
+          }}
           variant="contained"
           onClick={() => {
             threeModelPrediction();

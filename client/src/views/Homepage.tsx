@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import AttributesSelection from "../components/AttributesSelection";
 import Header from "../components/Header";
 import Result from "../components/Result";
+import { IParameters } from "../models/Parameters";
 import { IResult } from "../models/PredictResult";
 
 const Homepage = () => {

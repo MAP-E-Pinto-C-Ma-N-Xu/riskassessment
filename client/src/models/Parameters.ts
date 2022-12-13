@@ -1,7 +1,5 @@
 export interface IParameters {
   model: any;
-  haveVI: any;
-  haveAW: any;
   hiddenLayers: any;
   actFunction: any;
   learningRate: any;

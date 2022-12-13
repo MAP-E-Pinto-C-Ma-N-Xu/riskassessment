@@ -1,6 +1,8 @@
 import pickle
 import numpy as np
 
+
+
 def dto(data):
 
     
@@ -29,4 +31,14 @@ def pickle_to_predict(userdata,classifierpkl):
 
     return result
 
+def conver_modif(data):
+    attr = dto(data["attr"])
+    param =data["param"]
+    
+    return param,attr
+
+
+##def modify_train(model, mode, para1, para2, para3):
+##    classifier,_ = main_model(model, mode, True, para1, para2, para3)
+##    pickle.dump(classifier,open("./pickle/mod_pickle/{}_{}.pkl".format(model,mode),"wb"))
 

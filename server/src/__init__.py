@@ -5,6 +5,7 @@ import numpy as np
 import helper
 
 
+
 # instantiate the app
 app = Flask(__name__)
 CORS(app)
@@ -22,21 +23,21 @@ class SVM(Resource):
             del data["vulnerability"]
             del data['awareness']
 
-            result = helper.pickle_to_predict(data,'./MLmodels/pklfile/svm_noBOTH.pkl')
+            result = helper.pickle_to_predict(data,'./pickle/default/svm_noBOTH.pkl')
             result["mode"] = "noBoth"
 
         elif data['vulnerability'] == -1 :
             del data["vulnerability"]
-            result = helper.pickle_to_predict(data,'./MLmodels/pklfile/svm_noVI.pkl')  
+            result = helper.pickle_to_predict(data,'./pickle/default/svm_noVI.pkl')  
             result["mode"] = "noVulnerability"      
         
         elif data['awareness'] == -1 :
             del data['awareness']
-            result = helper.pickle_to_predict(data,'./MLmodels/pklfile/svm_noAW.pkl')  
+            result = helper.pickle_to_predict(data,'./pickle/default/svm_noAW.pkl')  
             result["mode"] = "noAwareness"
 
         else:
-            result = helper.pickle_to_predict(data,'./MLmodels/pklfile/svm_all.pkl')
+            result = helper.pickle_to_predict(data,'./pickle/default/svm_all.pkl')
             result["mode"] = "default"
         
         
@@ -48,6 +49,7 @@ class NN(Resource):
     def post(self):
 
         data = request.json
+        data = helper.dto(data)
 
         
 
@@ -55,23 +57,23 @@ class NN(Resource):
             del data["vulnerability"]
             del data['awareness']
 
-            result = helper.pickle_to_predict(data,'./MLmodels/pklfile/nn_noBOTH.pkl')
+            result = helper.pickle_to_predict(data,'./pickle/default/nn_noBOTH.pkl')
             result["mode"] = "noBoth"
             
 
         elif data['vulnerability'] == -1 :
             del data["vulnerability"]
-            result = helper.pickle_to_predict(data,'./MLmodels/pklfile/nn_noVI.pkl')
+            result = helper.pickle_to_predict(data,'./pickle/default/nn_noVI.pkl')
             result["mode"] = "noVulnerability"
         
         
         elif data['awareness'] == -1 :
             del data['awareness']
-            result = helper.pickle_to_predict(data,'./MLmodels/pklfile/nn_noAW.pkl')  
+            result = helper.pickle_to_predict(data,'./pickle/default/nn_noAW.pkl')  
             result["mode"] = "noAwareness"
              
         else:
-            result = helper.pickle_to_predict(data,'./MLmodels/pklfile/nn_all.pkl')
+            result = helper.pickle_to_predict(data,'./pickle/default/nn_all.pkl')
             result["mode"] = "default"
         
         
@@ -84,6 +86,7 @@ class RF(Resource):
     def post(self):
 
         data = request.json
+        data = helper.dto(data)
 
         
 
@@ -91,20 +94,20 @@ class RF(Resource):
             del data["vulnerability"]
             del data['awareness']
 
-            result = helper.pickle_to_predict(data,'./MLmodels/pklfile/svm_noBOTH.pkl')
+            result = helper.pickle_to_predict(data,'./pickle/default/svm_noBOTH.pkl')
             result["mode"] = "noBoth"
 
         elif data['vulnerability'] == -1 :
             del data["vulnerability"]
-            result = helper.pickle_to_predict(data,'./MLmodels/pklfile/svm_noVI.pkl')
+            result = helper.pickle_to_predict(data,'./pickle/default/svm_noVI.pkl')
             result["mode"] = "noVulnerability"
         
         elif data['awareness'] == -1 :
             del data['awareness']
-            result = helper.pickle_to_predict(data,'./MLmodels/pklfile/svm_noAW.pkl')
+            result = helper.pickle_to_predict(data,'./pickle/default/svm_noAW.pkl')
             result["mode"] = "noAwareness"   
         else:
-            result = helper.pickle_to_predict(data,'./MLmodels/pklfile/svm_all.pkl')
+            result = helper.pickle_to_predict(data,'./pickle/default/svm_all.pkl')
             result["mode"] = "default"
         
 
@@ -127,7 +130,11 @@ class Test(Resource):
 class Modif(Resource):
     def put(self):
         data = request.json
-        resp = jsonify(data)
+
+        param,attr = helper.conver_modif(data)
+        #helper.modify_train(model, mode, para1, para2, para3)
+
+        resp = jsonify(param)
 
         return resp
 
