@@ -1,8 +1,8 @@
 import numpy as np
 import pandas as pd
-from RF import RF_train
-from SVM import SVM_train
-from NN import NN_train
+from algorithms.RF import RF_train
+from algorithms.SVM import SVM_train
+from algorithms.NN import NN_train
 import warnings
 
 def main_model(model = 'rf', mode = 'all', confi = False, Para1 = 500, Para2 = None, Para3 = 2):

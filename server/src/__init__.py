@@ -149,8 +149,20 @@ class Modif(Resource):
         if(param["model"] == 0):
             param["model"] = 'nn'
             para1 = param["hiddenLayers"]
+            para1 = (para1,para1,para1)
+            
             para2 = param["actFunction"]
+            if para2 == 0:
+                para2 = "relu"
+            elif para2 == 1:
+                para2 = "tanh"
+            elif para2 == 2:
+                para2 = "logistic"
+            elif para2 == 3:
+                para2 = "identity"
+
             para3 = param["learningRate"]
+
         elif(param["model"] == 1):
             param["model"] = 'svm'
             para1 = param["kernel"]
@@ -164,11 +176,11 @@ class Modif(Resource):
 
         
         
-        #helper.modify_train(model, mode, para1, para2, para3)
+        result = helper.modify_train_predict(attr,param["model"], param["mode"], para1, para2, para3)
 
-        resp = jsonify(param["model"], param["mode"], para1, para2, para3)
+        resp = jsonify(attr,param["model"], param["mode"], para1, para2, para3)
 
-        return resp
+        return jsonify(result)
 
     
 @api.route('/check')

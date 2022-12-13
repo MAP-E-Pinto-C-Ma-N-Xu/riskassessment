@@ -2,6 +2,7 @@ import {
   Alert,
   Box,
   Button,
+  CircularProgress,
   FormControl,
   FormHelperText,
   Grid,
@@ -55,6 +56,8 @@ const AttributesSelection = (props: AttributesSelectionProps) => {
   const [modsuccess, setModsuccess] = useState<boolean>(false);
   const [showInfo, setShowInfo] = useState<boolean>(false);
 
+  const [modLoading, setModLoading] = useState<boolean>(false);
+
   useEffect(() => {
     const modstatus = localStorage.getItem("modSuccess");
     setModsuccess(modstatus === "true");
@@ -83,18 +86,20 @@ const AttributesSelection = (props: AttributesSelectionProps) => {
   ]);
 
   const ModifAlgPrediction = async () => {
+    setModLoading(true);
     const param = JSON.parse(localStorage.getItem("modParam")!);
 
     axios
       .put("http://127.0.0.1:5000/modif", { param: param, attr: newAttributes })
       .then(function (response) {
-        props.updateSVMResult({
+        props.updateModifResult({
           result: response.data.result,
           mode: response.data.mode,
           model: response.data.model,
           active: true,
         });
         console.log(response.data);
+        setModLoading(false);
       })
       .catch(function (error) {
         console.log(error);
@@ -393,6 +398,7 @@ const AttributesSelection = (props: AttributesSelectionProps) => {
               ModifAlgPrediction();
             }}
           >
+            {modLoading ? <CircularProgress /> : null}
             Predict using modified algorithm
           </Button>
         ) : null}

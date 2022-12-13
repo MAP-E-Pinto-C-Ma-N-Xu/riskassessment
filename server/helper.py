@@ -1,6 +1,6 @@
 import pickle
 import numpy as np
-
+from algorithms.Model import main_model
 
 
 def dto(data):
@@ -39,7 +39,12 @@ def conver_modif(data):
     return param,attr
 
 
-def modify_train(model, mode, para1, para2, para3):
-    classifier,_ = main_model(model, mode, True, para1, para2, para3)
-    pickle.dump(classifier,open("./pickle/mod_pickle/{}_{}.pkl".format(model,mode),"wb"))
+def modify_train_predict(data,model, mode, para1, para2, para3):
+   classifier,_ = main_model(model, mode, True, para1, para2, para3)
+   pickle.dump(classifier,open("./pickle/mod_pickle/{}_{}.pkl".format(model,mode),"wb"))
+   result = pickle_to_predict(data,"./pickle/mod_pickle/{}_{}.pkl".format(model,mode))
+   result["mode"] = mode
+   result["model"] = model
+   return result 
+
 
