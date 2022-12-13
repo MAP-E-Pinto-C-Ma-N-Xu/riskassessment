@@ -132,9 +132,41 @@ class Modif(Resource):
         data = request.json
 
         param,attr = helper.conver_modif(data)
+
+        if (attr['vulnerability'] == -1) and (attr['awareness'] == -1):
+            del attr["vulnerability"]
+            del attr['awareness']
+            param["mode"] = "noBOTH"
+        elif attr['vulnerability'] == -1 :
+            del attr["vulnerability"]
+            param["mode"] = "noVI"
+        elif attr['awareness'] == -1 :
+            del attr['awareness']
+            param["mode"] = "noAW"
+        else:
+            param["mode"] = "all"
+        
+        if(param["model"] == 0):
+            param["model"] = 'nn'
+            para1 = param["hiddenLayers"]
+            para2 = param["actFunction"]
+            para3 = param["learningRate"]
+        elif(param["model"] == 1):
+            param["model"] = 'svm'
+            para1 = param["kernel"]
+            para2 = param["regul"]
+            para3 = param["gamma"]
+        elif(param["model"] == 2):
+            param["model"] = 'rf'
+            para1 = param["estimators"]
+            para2 = param["depth"]
+            para3 = param["split"]
+
+        
+        
         #helper.modify_train(model, mode, para1, para2, para3)
 
-        resp = jsonify(param)
+        resp = jsonify(param["model"], param["mode"], para1, para2, para3)
 
         return resp
 
