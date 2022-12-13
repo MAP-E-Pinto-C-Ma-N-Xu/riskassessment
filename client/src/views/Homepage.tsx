@@ -26,6 +26,13 @@ const Homepage = () => {
     active: false,
   });
 
+  const [modifResult, setModifResult] = useState<IResult>({
+    result: 0,
+    mode: "",
+    model: "",
+    active: false,
+  });
+
   useEffect(() => {}, []);
 
   return (
@@ -43,12 +50,14 @@ const Homepage = () => {
           updateSVMResult={(svmResult) => setSVMResult(svmResult)}
           updateNNResult={(nnResult) => setNNResult(nnResult)}
           updateRFResult={(rfResult) => setRFResult(rfResult)}
+          updateModifResult={(modifResult) => setModifResult(rfResult)}
         />
 
         <Result
           svmResult={svmResult}
           nnResult={nnResult}
           rfResult={rfResult}
+          modifResult={modifResult}
         ></Result>
       </Box>
     </div>

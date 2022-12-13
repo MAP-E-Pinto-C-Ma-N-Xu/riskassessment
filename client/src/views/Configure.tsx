@@ -13,6 +13,7 @@ import {
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import { IParameters } from "../models/Parameters";
+import InfoIcon from "@mui/icons-material/Info";
 
 const Configure = () => {
   const defaultparameters: IParameters = {
@@ -46,6 +47,8 @@ const Configure = () => {
   const [modsuccess, setModsuccess] = useState<boolean>(false);
   const [modMissing, setModMissing] = useState<boolean>(false);
 
+  const [showInfo, setShowInfo] = useState<boolean>(false);
+
   useEffect(() => {
     console.log(JSON.stringify(modsuccess));
     localStorage.setItem("modSuccess", JSON.stringify(modsuccess));
@@ -61,6 +64,7 @@ const Configure = () => {
       }}
     >
       <Header />
+
       <Box display="flex" justifyContent="center" alignItems="center">
         <Box
           sx={{
@@ -120,6 +124,17 @@ const Configure = () => {
 
           {String(model) === "0" ? (
             <div>
+              <Box>
+                <Button
+                  variant="outlined"
+                  startIcon={<InfoIcon />}
+                  onClick={() => {
+                    setShowInfo(!showInfo);
+                  }}
+                >
+                  More info about parameters
+                </Button>
+              </Box>
               <FormControl variant="standard" sx={{ m: 2, width: "30ch" }}>
                 <InputLabel id="demo-simple-select-label">
                   Activiation Function
@@ -169,11 +184,47 @@ const Configure = () => {
                   setLearningRate(Number(event.target.value))
                 }
               />
+              <div style={{ display: "flex" }}>
+                {showInfo ? (
+                  <Alert severity="info" sx={{ m: 2, width: "30ch" }}>
+                    Activation function is a function used in artificial neural
+                    networks which outputs a small value for small inputs, and a
+                    larger value if its inputs exceed a threshold.
+                  </Alert>
+                ) : null}
+                {showInfo ? (
+                  <Alert severity="info" sx={{ m: 2, width: "30ch" }}>
+                    Hidden layers perform nonlinear transformations of the
+                    inputs entered into the network. Hidden layers vary
+                    depending on the function of the neural network, and
+                    similarly, the layers may vary depending on their associated
+                    weights.
+                  </Alert>
+                ) : null}
+                {showInfo ? (
+                  <Alert severity="info" sx={{ m: 2, width: "30ch" }}>
+                    The learning rate is a hyperparameter that controls how much
+                    to change the model in response to the estimated error each
+                    time the model weights are updated.
+                  </Alert>
+                ) : null}
+              </div>
             </div>
           ) : null}
 
           {String(model) === "1" ? (
             <div>
+              <Box>
+                <Button
+                  variant="outlined"
+                  startIcon={<InfoIcon />}
+                  onClick={() => {
+                    setShowInfo(!showInfo);
+                  }}
+                >
+                  More info about parameters
+                </Button>
+              </Box>
               <FormControl variant="standard" sx={{ m: 2, width: "30ch" }}>
                 <InputLabel id="demo-simple-select-label">
                   Set Kernel
@@ -220,11 +271,46 @@ const Configure = () => {
                 defaultValue="1"
                 onChange={(event) => setGamma(Number(event.target.value))}
               />
+
+              <div style={{ display: "flex" }}>
+                {showInfo ? (
+                  <Alert severity="info" sx={{ m: 2, width: "30ch" }}>
+                    The function of a kernel is to require data as input and
+                    transform it into the desired form.
+                  </Alert>
+                ) : null}
+                {showInfo ? (
+                  <Alert severity="info" sx={{ m: 2, width: "30ch" }}>
+                    The C parameter tells the SVM optimization how much you want
+                    to avoid misclassifying each training example. The strength
+                    of the regularization is inversely proportional to C. Must
+                    be strictly positive.
+                  </Alert>
+                ) : null}
+                {showInfo ? (
+                  <Alert severity="info" sx={{ m: 2, width: "30ch" }}>
+                    the gamma parameter defines how far the influence of a
+                    single training example reaches, with low values meaning
+                    ‘far’ and high values meaning ‘close’.
+                  </Alert>
+                ) : null}
+              </div>
             </div>
           ) : null}
 
           {String(model) === "2" ? (
             <div>
+              <Box>
+                <Button
+                  variant="outlined"
+                  startIcon={<InfoIcon />}
+                  onClick={() => {
+                    setShowInfo(!showInfo);
+                  }}
+                >
+                  More info about parameters
+                </Button>
+              </Box>
               <TextField
                 sx={{
                   my: 2,
@@ -261,6 +347,27 @@ const Configure = () => {
                 defaultValue="2"
                 onChange={(event) => setSplit(Number(event.target.value))}
               />
+
+              <div style={{ display: "flex" }}>
+                {showInfo ? (
+                  <Alert severity="info" sx={{ m: 2, width: "30ch" }}>
+                    The number of trees in the forest.
+                  </Alert>
+                ) : null}
+                {showInfo ? (
+                  <Alert severity="info" sx={{ m: 2, width: "30ch" }}>
+                    The maximum depth of the tree. If None, then nodes are
+                    expanded until all leaves are pure or until all leaves
+                    contain less than Minimum samples split.
+                  </Alert>
+                ) : null}
+                {showInfo ? (
+                  <Alert severity="info" sx={{ m: 2, width: "30ch" }}>
+                    The minimum number of samples required to split an internal
+                    node.
+                  </Alert>
+                ) : null}
+              </div>
             </div>
           ) : null}
           <Grid container justifyContent="flex-end">

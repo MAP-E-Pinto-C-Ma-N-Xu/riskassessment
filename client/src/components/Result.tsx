@@ -1,13 +1,26 @@
-import { Box, Card, CardContent, Typography } from "@mui/material";
+import { Alert, Box, Card, CardContent, Typography } from "@mui/material";
 import { NULL } from "node-sass";
+import { useEffect, useState } from "react";
 import { IResult } from "../models/PredictResult";
 
 interface ResultProps {
   svmResult: IResult;
   nnResult: IResult;
   rfResult: IResult;
+  modifResult: IResult;
 }
 const Result = (props: ResultProps) => {
+  const [existResult, setExistResult] = useState<boolean>(false);
+
+  useEffect(() => {
+    setExistResult(
+      props.svmResult.active ||
+        props.nnResult.active ||
+        props.rfResult.active ||
+        props.modifResult.active
+    );
+  }, [props.svmResult, props.rfResult, props.nnResult, props.modifResult]);
+
   return (
     <Box
       sx={{
@@ -34,6 +47,11 @@ const Result = (props: ResultProps) => {
           mt: 5,
         }}
       >
+        {!existResult ? (
+          <Alert severity="info">
+            Use left panel to predict the Cybersecurity risk
+          </Alert>
+        ) : null}
         {props.svmResult.active ? (
           <Card sx={{ minWidth: 275 }}>
             <CardContent>
@@ -111,6 +129,37 @@ const Result = (props: ResultProps) => {
                 {props.rfResult.result === 0 ? " Low" : null}
                 {props.rfResult.result === 1 ? " Medium" : null}
                 {props.rfResult.result === 2 ? " High" : null}
+              </Typography>
+            </CardContent>
+          </Card>
+        ) : null}
+      </Box>
+
+      <Box
+        sx={{
+          bgcolor: "background.paper",
+          boxShadow: 1,
+          borderRadius: 2,
+
+          mt: 5,
+        }}
+      >
+        {props.modifResult.active ? (
+          <Card sx={{ minWidth: 275 }}>
+            <CardContent>
+              <Typography
+                sx={{ fontSize: 15 }}
+                color="text.secondary"
+                gutterBottom
+              >
+                Your modified Algorithm Result
+              </Typography>
+
+              <Typography variant="h6">
+                Your Cyber Security Risk is
+                {props.modifResult.result === 0 ? " Low" : null}
+                {props.modifResult.result === 1 ? " Medium" : null}
+                {props.modifResult.result === 2 ? " High" : null}
               </Typography>
             </CardContent>
           </Card>

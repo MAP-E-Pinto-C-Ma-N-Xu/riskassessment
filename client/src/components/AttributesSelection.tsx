@@ -1,9 +1,11 @@
 import {
+  Alert,
   Box,
   Button,
   FormControl,
   FormHelperText,
   Grid,
+  IconButton,
   InputAdornment,
   InputLabel,
   MenuItem,
@@ -15,11 +17,13 @@ import React, { useEffect, useState } from "react";
 import { IAttributes } from "../models/Attributes";
 import { IResult } from "../models/PredictResult";
 import axios from "axios";
+import InfoIcon from "@mui/icons-material/Info";
 
 interface AttributesSelectionProps {
   updateSVMResult: (defaultResult: IResult) => void;
   updateNNResult: (defaultResult: IResult) => void;
   updateRFResult: (defaultResult: IResult) => void;
+  updateModifResult: (defaultResult: IResult) => void;
 }
 
 const AttributesSelection = (props: AttributesSelectionProps) => {
@@ -49,6 +53,7 @@ const AttributesSelection = (props: AttributesSelectionProps) => {
   const [investment, setInvestment] = useState<number>(0);
 
   const [modsuccess, setModsuccess] = useState<boolean>(false);
+  const [showInfo, setShowInfo] = useState<boolean>(false);
 
   useEffect(() => {
     const modstatus = localStorage.getItem("modSuccess");
@@ -164,9 +169,20 @@ const AttributesSelection = (props: AttributesSelectionProps) => {
 
         minWidth: 400,
 
-        width: "40%",
+        width: "60%",
       }}
     >
+      <Box>
+        <Button
+          variant="outlined"
+          startIcon={<InfoIcon />}
+          onClick={() => {
+            setShowInfo(!showInfo);
+          }}
+        >
+          More info about attributes
+        </Button>
+      </Box>
       <FormControl variant="standard" sx={{ m: 2, width: "30ch" }}>
         <InputLabel id="demo-simple-select-label">Field</InputLabel>
 
@@ -219,7 +235,6 @@ const AttributesSelection = (props: AttributesSelectionProps) => {
           <MenuItem value={2}>Moderate level</MenuItem>
           <MenuItem value={3}>High level</MenuItem>
         </Select>
-        <FormHelperText>Low means blabalblablablalblablablablla</FormHelperText>
       </FormControl>
       <Box>
         <FormControl variant="standard" sx={{ m: 2, width: "30ch" }}>
@@ -259,6 +274,21 @@ const AttributesSelection = (props: AttributesSelectionProps) => {
             <MenuItem value={2}>IT Security Department</MenuItem>
           </Select>
         </FormControl>
+        <div style={{ display: "flex" }}>
+          {showInfo ? (
+            <Alert severity="info" sx={{ m: 2, width: "30ch" }}>
+              Cybersecurity Awareness: In which degree the employees of a
+              company are knowledgeable about the dangers of cyberattacks, and
+              behave according to best practices
+            </Alert>
+          ) : null}
+          {showInfo ? (
+            <Alert severity="info" sx={{ m: 2, width: "30ch" }}>
+              IT Support: measure IT specialists who help the company to take
+              effective and quick measures to prevent cyberattacks.
+            </Alert>
+          ) : null}
+        </div>
       </Box>
 
       <Box
@@ -267,65 +297,83 @@ const AttributesSelection = (props: AttributesSelectionProps) => {
           mb: 5,
         }}
       >
-        <TextField
-          sx={{
-            my: 2,
-            mx: 2,
-          }}
-          id="standard-basic"
-          label="Number of Employees"
-          variant="standard"
-          type="number"
-          defaultValue="10"
-          onChange={(event) => setEmployeeNumber(Number(event.target.value))}
-        />
+        <div>
+          <TextField
+            sx={{
+              my: 2,
+              mx: 2,
+            }}
+            id="standard-basic"
+            label="Number of Employees"
+            variant="standard"
+            type="number"
+            defaultValue="10"
+            onChange={(event) => setEmployeeNumber(Number(event.target.value))}
+          />
 
-        <TextField
-          sx={{
-            my: 2,
-            mx: 2,
-          }}
-          id="standard-basic"
-          label="Vulnerability"
-          variant="standard"
-          type="number"
-          defaultValue="0"
-          helperText="set to -1 if you don't know this"
-          onChange={(event) => setVulnerability(Number(event.target.value))}
-        />
+          <TextField
+            sx={{
+              my: 2,
+              mx: 2,
+            }}
+            id="standard-basic"
+            label="Vulnerability"
+            variant="standard"
+            type="number"
+            defaultValue="0"
+            helperText="set to -1 if you don't know this"
+            onChange={(event) => setVulnerability(Number(event.target.value))}
+          />
 
-        <TextField
-          sx={{
-            my: 2,
-            mx: 2,
-          }}
-          id="standard-basic"
-          label="Revenue"
-          variant="standard"
-          type="number"
-          defaultValue="1"
-          //placeholder="1,2,...50"
-          InputProps={{
-            startAdornment: <InputAdornment position="start">€</InputAdornment>,
-          }}
-          onChange={(event) => setRevenue(Number(event.target.value))}
-        />
+          <TextField
+            sx={{
+              my: 2,
+              mx: 2,
+            }}
+            id="standard-basic"
+            label="Revenue"
+            variant="standard"
+            type="number"
+            defaultValue="1"
+            //placeholder="1,2,...50"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">€</InputAdornment>
+              ),
+            }}
+            onChange={(event) => setRevenue(Number(event.target.value))}
+          />
 
-        <TextField
-          sx={{
-            my: 2,
-            mx: 2,
-          }}
-          id="standard-basic"
-          label="Cybersecurity Investment (%)"
-          variant="standard"
-          type="number"
-          defaultValue="0"
-          onChange={(event) => setInvestment(Number(event.target.value))}
-          InputProps={{
-            endAdornment: <InputAdornment position="end">%</InputAdornment>,
-          }}
-        />
+          <TextField
+            sx={{
+              my: 2,
+              mx: 2,
+            }}
+            id="standard-basic"
+            label="Cybersecurity Investment (%)"
+            variant="standard"
+            type="number"
+            defaultValue="0"
+            onChange={(event) => setInvestment(Number(event.target.value))}
+            InputProps={{
+              endAdornment: <InputAdornment position="end">%</InputAdornment>,
+            }}
+          />
+        </div>
+        <div style={{ display: "flex" }}>
+          {showInfo ? (
+            <Alert severity="info" sx={{ m: 2, width: "30ch" }}>
+              Vulnerability: The number of vulnerabilities that a company or at
+              least its IT department is aware of.
+            </Alert>
+          ) : null}
+          {showInfo ? (
+            <Alert severity="info" sx={{ m: 2, width: "30ch" }}>
+              Cybersecurity Investment: Percent of their IT budget invested in
+              cybersecurity.
+            </Alert>
+          ) : null}
+        </div>
       </Box>
       <Grid container justifyContent="flex-end">
         {modsuccess ? (
