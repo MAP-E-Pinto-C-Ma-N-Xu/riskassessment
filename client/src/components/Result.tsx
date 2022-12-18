@@ -62,7 +62,7 @@ const Result = (props: ResultProps) => {
                 color="text.secondary"
                 gutterBottom
               >
-                Support Vector Machine Algorithm
+                Support Vector Machines Algorithm
               </Typography>
 
               <Typography variant="h6">
@@ -93,7 +93,7 @@ const Result = (props: ResultProps) => {
                 color="text.secondary"
                 gutterBottom
               >
-                Neuron Network Algorithm
+                Neural Network Algorithm
               </Typography>
 
               <Typography variant="h6">

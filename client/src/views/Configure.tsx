@@ -2,6 +2,7 @@ import {
   Alert,
   Box,
   Button,
+  CssBaseline,
   FormControl,
   Grid,
   InputLabel,
@@ -64,6 +65,7 @@ const Configure = () => {
       }}
     >
       <Header />
+      <CssBaseline />
 
       <Box display="flex" justifyContent="center" alignItems="center">
         <Box
@@ -110,13 +112,13 @@ const Configure = () => {
                 id="demo-simple-select"
                 defaultValue={model}
                 value={model}
-                label="Neuron Network"
+                label="Neural Network"
                 onChange={(event: SelectChangeEvent) => {
                   setModel(event.target.value);
                 }}
               >
-                <MenuItem value={0}>Neuron Network</MenuItem>
-                <MenuItem value={1}>Support Vecter Machine</MenuItem>
+                <MenuItem value={0}>Neural Network</MenuItem>
+                <MenuItem value={1}>Support Vector Machine</MenuItem>
                 <MenuItem value={2}>Random Forest</MenuItem>
               </Select>
             </FormControl>

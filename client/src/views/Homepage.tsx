@@ -1,3 +1,4 @@
+import { CssBaseline } from "@mui/material";
 import Box from "@mui/material/Box";
 import { useEffect, useState } from "react";
 import AttributesSelection from "../components/AttributesSelection";
@@ -44,6 +45,7 @@ const Homepage = () => {
       }}
     >
       <Header />
+      <CssBaseline />
 
       <Box sx={{ display: "flex" }}>
         <AttributesSelection
